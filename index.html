@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Resume - Kyaw Swar Winn</title>
+    <style>
+        :root { --primary-color: #2c3e50; --accent-color: #34495e; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
+        .cv-page { 
+            width: 210mm; min-height: 297mm; margin: auto; 
+            background: white; padding: 40px; box-sizing: border-box; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1); 
+        }
+        [contenteditable="true"]:hover { outline: 1px dashed #3498db; background-color: #f7fbff; }
+        .header { border-bottom: 4px solid var(--primary-color); padding-bottom: 20px; margin-bottom: 20px; display: flow-root; }
+        .profile-img { width: 130px; height: 150px; float: right; border: 2px solid var(--primary-color); border-radius: 4px; object-fit: cover; margin-left: 20px; }
+        
+        h1 { margin: 0; color: var(--primary-color); font-size: 30px; letter-spacing: 1px; }
+        .contact-info { margin-top: 10px; font-size: 14px; color: #555; line-height: 1.5; }
+        
+        .section { margin-bottom: 22px; }
+        .section-title { font-size: 16px; font-weight: bold; color: white; background: var(--primary-color); padding: 6px 15px; margin-bottom: 12px; text-transform: uppercase; border-radius: 2px; }
+        
+        .summary-text { font-size: 14.5px; line-height: 1.6; color: #333; text-align: justify; }
+        
+        .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .detail-row { margin-bottom: 8px; display: flex; font-size: 14px; }
+        .label { font-weight: bold; min-width: 130px; color: #000; }
+        .content { flex: 1; }
+        
+        ul { margin: 5px 0; padding-left: 18px; font-size: 14px; }
+        li { margin-bottom: 4px; }
+
+        .no-print { position: fixed; bottom: 25px; right: 25px; z-index: 100; }
+        @media print { .no-print { display: none; } [contenteditable="true"]:hover { outline: none; background: none; } body { padding: 0; } .cv-page { box-shadow: none; margin: 0; width: 100%; } }
+    </style>
+</head>
+<body>
+
+<div class="cv-page" contenteditable="true">
+    <div class="header">
+        <img src="https://i.ibb.co/Zz2rhXMr/IMG-20260418-173051-731.jpg" alt="Profile" class="profile-img">
+        <h1>KYAW SWAR WINN</h1>
+        <div class="contact-info">
+            <strong>Phone:</strong> 09-788404048 | <strong>Email:</strong> zekyyyy2006@gmail.com<br>
+            <strong>Address:</strong> Yangon, Myanmar<br>
+            <strong>GitHub:</strong> github.com/yourusername
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Professional Summary</div>
+        <p class="summary-text">
+            Results-driven Junior Developer and System Maintainer with expertise in the online gaming and telemarketing industry. 
+            Proficient in developing responsive web interfaces and maintaining high-traffic system stability through automation and proactive troubleshooting. 
+            Committed to leveraging modern AI tools and software logic to optimize operational workflows.
+        </p>
+    </div>
+
+    <div class="grid-container">
+        <div class="section">
+            <div class="section-title">Technical Skills</div>
+            <ul>
+                <li><strong>Web Dev:</strong> HTML5, CSS3, JavaScript (ES6)</li>
+                <li><strong>Mobile:</strong> Android WebView, Java (Android Studio)</li>
+                <li><strong>Systems:</strong> Cloudflare Workers, Git, Virtualization (VMOS)</li>
+                <li><strong>Maintenance:</strong> Script Automation, Server Monitoring</li>
+            </ul>
+        </div>
+        <div class="section">
+            <div class="section-title">Soft Skills</div>
+            <ul>
+                <li><strong>Analysis:</strong> Strategic Problem Solving</li>
+                <li><strong>Communication:</strong> Professional Collaboration</li>
+                <li><strong>Learning:</strong> Fast Tech Adaptability</li>
+                <li><strong>Work Ethic:</strong> Performance-driven Mindset</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">AI Tools Proficiency</div>
+        <div class="detail-row">
+            <span class="label">Tools:</span>
+            <span class="content">ChatGPT, Claude, Microsoft Copilot, Gemini</span>
+        </div>
+        <div class="detail-row">
+            <span class="label">Expertise:</span>
+            <span class="content">Prompt Engineering for code debugging, Content Generation, and Automated Workflow optimization.</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Work Experience</div>
+        <div style="font-weight:bold; font-size: 15px;">Senior Staff / System Maintainer</div>
+        <div style="font-style: italic; color: #666; font-size: 13px; margin-bottom: 8px;">Online Gaming & Telemarketing Co., Ltd. | 2025 - Present</div>
+        <ul>
+            <li>Managing high-frequency user traffic and ensuring 99.9% system uptime.</li>
+            <li>Developing custom JS/HTML scripts to enhance promotional activities.</li>
+            <li>Collaborating with team leaders to improve engagement through data-driven strategies.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Personal Details</div>
+        <div class="detail-row"><span class="label">Date of Birth:</span><span class="content">October 5, 2006</span></div>
+        <div class="section-title" style="background: none; color: gray; font-size: 10px; padding: 0; margin: 10px 0 0 0;">* Click and type to update info</div>
+    </div>
+</div>
+
+<div class="no-print">
+    <button onclick="window.print()" style="padding: 15px 35px; background: #2c3e50; color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+        EXPORT CV PDF
+    </button>
+</div>
+
+</body>
+</html>
