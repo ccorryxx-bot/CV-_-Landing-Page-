@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Resume - Kyaw Swar Winn</title>
+    <style>
+        :root { --primary-color: #2c3e50; --accent-color: #34495e; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
+        .cv-page { 
+            width: 210mm; min-height: 297mm; margin: auto; 
+            background: white; padding: 40px; box-sizing: border-box; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1); 
+        }
+        [contenteditable="true"]:hover { outline: 1px dashed #3498db; background-color: #f7fbff; }
+        .header { border-bottom: 4px solid var(--primary-color); padding-bottom: 20px; margin-bottom: 20px; display: flow-root; }
+        .profile-img { width: 130px; height: 150px; float: right; border: 2px solid var(--primary-color); border-radius: 4px; object-fit: cover; margin-left: 20px; }
+        
+        h1 { margin: 0; color: var(--primary-color); font-size: 30px; letter-spacing: 1px; }
+        .contact-info { margin-top: 10px; font-size: 14px; color: #555; line-height: 1.5; }
+        
+        .section { margin-bottom: 22px; }
+        .section-title { font-size: 16px; font-weight: bold; color: white; background: var(--primary-color); padding: 6px 15px; margin-bottom: 12px; text-transform: uppercase; border-radius: 2px; }
+        
+        .summary-text { font-size: 14.5px; line-height: 1.6; color: #333; text-align: justify; }
+        
+        .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .detail-row { margin-bottom: 8px; display: flex; font-size: 14px; }
+        .label { font-weight: bold; min-width: 130px; color: #000; }
+        .content { flex: 1; }
+        
+        ul { margin: 5px 0; padding-left: 18px; font-size: 14px; }
+        li { margin-bottom: 4px; }
+
+        /* Language Switch Button */
+        .lang-switch-bar {
+            width: 210mm;
+            margin: 0 auto 12px auto;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .lang-btn {
+            display: flex;
+            background: #2c3e50;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+            border: none;
+            cursor: pointer;
+        }
+        .lang-btn span {
+            padding: 9px 22px;
+            font-size: 13px;
+            font-weight: bold;
+            color: rgba(255,255,255,0.5);
+            transition: all 0.25s;
+            user-select: none;
+        }
+        .lang-btn span.active {
+            background: #3498db;
+            color: white;
+            border-radius: 50px;
+        }
+
+        .no-print { position: fixed; bottom: 25px; right: 25px; z-index: 100; display: flex; gap: 10px; flex-direction: column; align-items: flex-end; }
+
+        /* Myanmar font support */
+        .mm-font { font-family: 'Pyidaungsu', 'Myanmar Text', 'Padauk', 'Segoe UI', sans-serif; }
+
+        .print-link-bar {
+            display: none;
+            width: 210mm;
+            margin: 0 auto 10px auto;
+            text-align: right;
+        }
+        .print-link-bar a {
+            font-size: 13px;
+            color: #3498db;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        @media print { 
+            .no-print { display: none; }
+            .lang-switch-bar { display: none !important; }
+            .print-link-bar { display: block; }
+            #cv-mm { display: none !important; }
+            #cv-en { display: block !important; }
+            [contenteditable="true"]:hover { outline: none; background: none; } 
+            body { padding: 0; background: white; } 
+            .cv-page { box-shadow: none; margin: 0; width: 100%; } 
+        }
+    </style>
+</head>
+<body>
+
+<!-- Print-only Interactive Link Bar -->
+<div class="print-link-bar">
+    🌐 Interactive Version (Language Switch): <a href="https://tinyurl.com/InteractiveVersionClickHere">tinyurl.com/InteractiveVersionClickHere</a>
+</div>
+
+<!-- Language Switch Bar -->
+<div class="lang-switch-bar">
+    <div class="lang-btn" onclick="toggleLang()">
+        <span id="btn-en" class="active">🇬🇧 English</span>
+        <span id="btn-mm">🇲🇲 မြန်မာ</span>
+    </div>
+</div>
+
+<div class="cv-page" contenteditable="true" id="cv-root">
+
+    <!-- ========== ENGLISH VERSION ========== -->
+    <div id="cv-en">
+        <div class="header">
+            <img src="https://i.ibb.co/Zz2rhXMr/IMG-20260418-173051-731.jpg" alt="Profile" class="profile-img">
+            <h1>KYAW SWAR WINN</h1>
+            <div class="contact-info">
+                <strong>Phone:</strong> 09-788404048 | <strong>Email:</strong> zekyyyy2006@gmail.com<br>
+                <strong>Address:</strong> Yangon, Myanmar<br>
+                <strong>GitHub:</strong> github.com/yourusername
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Professional Summary</div>
+            <p class="summary-text">
+                Results-driven Junior Developer and System Maintainer with expertise in the online gaming and telemarketing industry. 
+                Proficient in developing responsive web interfaces and maintaining high-traffic system stability through automation and proactive troubleshooting. 
+                Committed to leveraging modern AI tools and software logic to optimize operational workflows.
+            </p>
+        </div>
+
+        <div class="grid-container">
+            <div class="section">
+                <div class="section-title">Technical Skills</div>
+                <ul>
+                    <li><strong>Web Dev:</strong> HTML5, CSS3, JavaScript (ES6)</li>
+                    <li><strong>Mobile:</strong> Android WebView, Java (Android Studio)</li>
+                    <li><strong>Systems:</strong> Cloudflare Workers, Git, Virtualization (VMOS)</li>
+                    <li><strong>Maintenance:</strong> Script Automation, Server Monitoring</li>
+                </ul>
+            </div>
+            <div class="section">
+                <div class="section-title">Soft Skills</div>
+                <ul>
+                    <li><strong>Analysis:</strong> Strategic Problem Solving</li>
+                    <li><strong>Communication:</strong> Professional Collaboration</li>
+                    <li><strong>Learning:</strong> Fast Tech Adaptability</li>
+                    <li><strong>Work Ethic:</strong> Performance-driven Mindset</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">AI Tools Proficiency</div>
+            <div class="detail-row">
+                <span class="label">Tools:</span>
+                <span class="content">ChatGPT, Claude, Microsoft Copilot, Gemini</span>
+            </div>
+            <div class="detail-row">
+                <span class="label">Expertise:</span>
+                <span class="content">Prompt Engineering for code debugging, Content Generation, and Automated Workflow optimization.</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Work Experience</div>
+            <div style="font-weight:bold; font-size: 15px;">Senior Staff / System Maintainer</div>
+            <div style="font-style: italic; color: #666; font-size: 13px; margin-bottom: 8px;">Online Gaming & Telemarketing Co., Ltd. | 2025 - Present</div>
+            <ul>
+                <li>Managing high-frequency user traffic and ensuring 99.9% system uptime.</li>
+                <li>Developing custom JS/HTML scripts to enhance promotional activities.</li>
+                <li>Collaborating with team leaders to improve engagement through data-driven strategies.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Personal Details</div>
+            <div class="detail-row"><span class="label">Date of Birth:</span><span class="content">October 5, 2006</span></div>
+            <div class="section-title" style="background: none; color: gray; font-size: 10px; padding: 0; margin: 10px 0 0 0;">* Click and type to update info</div>
+        </div>
+    </div>
+
+    <!-- ========== MYANMAR VERSION ========== -->
+    <div id="cv-mm" style="display:none;" class="mm-font">
+        <div class="header">
+            <img src="https://i.ibb.co/Zz2rhXMr/IMG-20260418-173051-731.jpg" alt="Profile" class="profile-img">
+            <h1>ကျော်စွာဝင်း</h1>
+            <div class="contact-info">
+                <strong>ဖုန်း:</strong> 09-788404048 | <strong>အီးမေးလ်:</strong> zekyyyy2006@gmail.com<br>
+                <strong>နေရပ်လိပ်စာ:</strong> ရန်ကုန်၊ မြန်မာနိုင်ငံ<br>
+                <strong>GitHub:</strong> github.com/yourusername
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">အကျဉ်းချုပ်မိတ်ဆက်</div>
+            <p class="summary-text">
+                Online Gaming နှင့် Telemarketing လုပ်ငန်းနယ်ပယ်တွင် ကျွမ်းကျင်မှုရှိသော Junior Developer နှင့် System Maintainer တစ်ဦးဖြစ်သည်။ 
+                Responsive Web Interface များဖန်တီးခြင်းနှင့် Traffic မြင့်သောစနစ်များ၏ တည်ငြိမ်မှုကို Automation ဖြင့် ထိန်းသိမ်းနိုင်သည်။ 
+                ခေတ်မီ AI ကိရိယာများနှင့် Software Logic ကို အသုံးချ၍ လုပ်ငန်းစဉ်များကို ပိုမိုထိရောက်အောင် ဆောင်ရွက်နိုင်သည်။
+            </p>
+        </div>
+
+        <div class="grid-container">
+            <div class="section">
+                <div class="section-title">နည်းပညာကျွမ်းကျင်မှုများ</div>
+                <ul>
+                    <li><strong>ဝဘ်ဆိုဒ်:</strong> HTML5, CSS3, JavaScript (ES6)</li>
+                    <li><strong>မိုဘိုင်း:</strong> Android WebView, Java (Android Studio)</li>
+                    <li><strong>စနစ်:</strong> Cloudflare Workers, Git, Virtualization (VMOS)</li>
+                    <li><strong>ထိန်းသိမ်းရေး:</strong> Script Automation, Server Monitoring</li>
+                </ul>
+            </div>
+            <div class="section">
+                <div class="section-title">လူမှုဆက်ဆံရေးစွမ်းရည်</div>
+                <ul>
+                    <li><strong>ခွဲခြမ်းစိတ်ဖြာမှု:</strong> နည်းဗျူဟာကျ ပြဿနာဖြေရှင်းနိုင်ခြင်း</li>
+                    <li><strong>ဆက်သွယ်ရေး:</strong> လုပ်ဖော်ကိုင်ဖက်များနှင့် ပူးပေါင်းဆောင်ရွက်ခြင်း</li>
+                    <li><strong>သင်ယူနိုင်မှု:</strong> နည်းပညာသစ်များကို မြန်ဆန်စွာ လိုက်လျောညီထွေ ဖြစ်နိုင်ခြင်း</li>
+                    <li><strong>လုပ်ငန်းကျင့်ဝတ်:</strong> ရလဒ်ကိုဦးစားပေးသောစိတ်ဓာတ်</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">AI ကိရိယာသုံးနိုင်မှု</div>
+            <div class="detail-row">
+                <span class="label">ကိရိယာများ:</span>
+                <span class="content">ChatGPT, Claude, Microsoft Copilot, Gemini</span>
+            </div>
+            <div class="detail-row">
+                <span class="label">ကျွမ်းကျင်မှု:</span>
+                <span class="content">Code စစ်ဆေးရေးအတွက် Prompt Engineering၊ အကြောင်းအရာဖန်တီးခြင်းနှင့် အလိုအလျောက်လုပ်ဆောင်မှု optimization ပြုလုပ်ခြင်း။</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">အလုပ်အကိုင်အတွေ့အကြုံ</div>
+            <div style="font-weight:bold; font-size: 15px;">အဆင့်မြင့်ဝန်ထမ်း / System ထိန်းသိမ်းသူ</div>
+            <div style="font-style: italic; color: #666; font-size: 13px; margin-bottom: 8px;">Online Gaming & Telemarketing Co., Ltd. | ၂၀၂၅ - ယခုအချိန်</div>
+            <ul>
+                <li>အသုံးပြုသူများ၏ Traffic မြင့်မားမှုကို စီမံခန့်ခွဲ၍ စနစ်တည်ငြိမ်မှု ၉၉.၉% ရရှိအောင် ဆောင်ရွက်ခြင်း။</li>
+                <li>ပရိုမိုးရှင်းလုပ်ငန်းများ တိုးတက်ကောင်းမွန်ရန် Custom JS/HTML Script များ ရေးသားခြင်း။</li>
+                <li>Data ကို အခြေခံသော နည်းဗျူဟာများဖြင့် ဆောင်ရွက်ချက်တိုးတက်ရေး Team Leader များနှင့် ပူးပေါင်းဆောင်ရွက်ခြင်း။</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <div class="section-title">ကိုယ်ရေးကိုယ်တာ အချက်အလက်</div>
+            <div class="detail-row"><span class="label">မွေးသက္ကရာဇ်:</span><span class="content">အောက်တိုဘာ ၅၊ ၂၀၀၆</span></div>
+            <div class="section-title" style="background: none; color: gray; font-size: 10px; padding: 0; margin: 10px 0 0 0;">* နှိပ်၍ အချက်အလက်များ ပြင်ဆင်နိုင်သည်</div>
+        </div>
+    </div>
+
+</div>
+
+<div class="no-print">
+    <button onclick="window.print()" style="padding: 15px 35px; background: #2c3e50; color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+        📄 EXPORT CV PDF
+    </button>
+</div>
+
+<script>
+    let currentLang = 'en';
+
+    // View mode - disable editing if ?view=1
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('view') === '1') {
+        document.getElementById('cv-root').removeAttribute('contenteditable');
+        document.getElementById('cv-root').style.cursor = 'default';
+    }
+
+    function toggleLang() {
+        if (currentLang === 'en') {
+            document.getElementById('cv-en').style.display = 'none';
+            document.getElementById('cv-mm').style.display = 'block';
+            document.getElementById('btn-en').classList.remove('active');
+            document.getElementById('btn-mm').classList.add('active');
+            currentLang = 'mm';
+        } else {
+            document.getElementById('cv-mm').style.display = 'none';
+            document.getElementById('cv-en').style.display = 'block';
+            document.getElementById('btn-mm').classList.remove('active');
+            document.getElementById('btn-en').classList.add('active');
+            currentLang = 'en';
+        }
+    }
+</script>
+
+</body>
+</html>
