@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CV - Kyaw Swar Winn</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&family=Montserrat:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #e8eaf0; font-family: 'Inter', sans-serif; padding: 0; min-height: 100vh; }
+
+/* TOOLBAR */
+.toolbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+    background: #1a1a2e; padding: 10px 16px;
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+.toolbar-label { color: #aaa; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-right: 4px; }
+.tmpl-btn { padding: 6px 14px; border: 1.5px solid #444; background: transparent; color: #ccc; border-radius: 20px; cursor: pointer; font-size: 12px; font-weight: 600; transition: all 0.2s; white-space: nowrap; }
+.tmpl-btn:hover { border-color: #888; color: white; }
+.tmpl-btn.active { background: #3498db; border-color: #3498db; color: white; }
+.lang-toggle { margin-left: auto; display: flex; background: #2d2d2d; border-radius: 20px; overflow: hidden; }
+.lang-toggle span { padding: 6px 16px; font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.45); cursor: pointer; transition: all 0.2s; }
+.lang-toggle span.active { background: #3498db; color: white; }
+.print-btn { padding: 6px 16px; background: #27ae60; color: white; border: none; border-radius: 20px; cursor: pointer; font-size: 12px; font-weight: 700; }
+
+/* WRAPPER */
+.cv-wrap { padding: 70px 16px 30px; }
+.cv-page { max-width: 210mm; margin: auto; }
+.mm-font { font-family: 'Pyidaungsu','Myanmar Text','Padauk',sans-serif; }
+
+/* ── T1 CLASSIC ── */
+.t1 .cv-page { background: white; padding: 36px; box-shadow: 0 4px 20px rgba(0,0,0,0.12); min-height: 297mm; }
+.t1 .cv-header { border-bottom: 4px solid #2c3e50; padding-bottom: 18px; margin-bottom: 18px; overflow: hidden; }
+.t1 .cv-photo { width: 110px; height: 130px; float: right; border: 2px solid #2c3e50; border-radius: 4px; object-fit: cover; margin-left: 20px; }
+.t1 h1 { font-size: 28px; color: #2c3e50; letter-spacing: 1px; margin-bottom: 8px; }
+.t1 .cv-contact { font-size: 13px; color: #555; line-height: 1.7; }
+.t1 .sec-title { font-size: 13px; font-weight: 700; color: white; background: #2c3e50; padding: 5px 14px; margin-bottom: 10px; text-transform: uppercase; border-radius: 2px; }
+.t1 .sec { margin-bottom: 18px; }
+.t1 p, .t1 li { font-size: 13px; color: #333; line-height: 1.65; }
+.t1 ul { padding-left: 18px; } .t1 li { margin-bottom: 4px; }
+.t1 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.t1 .row { display: flex; font-size: 13px; margin-bottom: 7px; }
+.t1 .lbl { font-weight: 700; min-width: 130px; color: #000; } .t1 .val { flex: 1; color: #333; }
+.t1 .job-title { font-weight: 700; font-size: 14px; color: #222; }
+.t1 .job-meta { font-style: italic; color: #666; font-size: 12px; margin-bottom: 7px; }
+
+/* ── T2 MINIMALIST ── */
+.t2 .cv-page { background: #fafafa; padding: 48px 52px; box-shadow: 0 2px 30px rgba(0,0,0,0.08); min-height: 297mm; }
+.t2 .cv-header { display: flex; align-items: flex-start; gap: 28px; margin-bottom: 30px; padding-bottom: 24px; border-bottom: 1px solid #e0e0e0; }
+.t2 .cv-photo { width: 90px; height: 108px; border-radius: 50%; object-fit: cover; border: 3px solid #111; flex-shrink: 0; }
+.t2 .header-text { flex: 1; }
+.t2 h1 { font-family: 'Playfair Display', serif; font-size: 34px; color: #111; letter-spacing: -0.5px; margin-bottom: 4px; }
+.t2 .subtitle { font-size: 13px; color: #888; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+.t2 .cv-contact { font-size: 12px; color: #666; line-height: 1.8; }
+.t2 .cv-contact span { margin-right: 16px; }
+.t2 .sec { margin-bottom: 22px; }
+.t2 .sec-title { font-size: 10px; font-weight: 700; color: #aaa; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #eee; }
+.t2 p, .t2 li { font-size: 13px; color: #444; line-height: 1.7; font-weight: 300; }
+.t2 ul { padding-left: 16px; } .t2 li { margin-bottom: 5px; }
+.t2 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.t2 .job-title { font-weight: 600; font-size: 14px; color: #111; }
+.t2 .job-meta { font-size: 11px; color: #999; margin-bottom: 8px; letter-spacing: 0.5px; }
+.t2 .row { display: flex; font-size: 13px; margin-bottom: 6px; }
+.t2 .lbl { font-weight: 600; min-width: 120px; color: #111; font-size: 12px; } .t2 .val { flex: 1; color: #555; font-size: 12px; }
+.t2 .tag { display: inline-block; background: #f0f0f0; color: #333; padding: 3px 10px; border-radius: 12px; font-size: 11px; margin: 2px; }
+
+/* ── T3 DARK GOLD ── */
+.t3 .cv-page { background: #0d1117; padding: 40px; box-shadow: 0 4px 30px rgba(0,0,0,0.5); min-height: 297mm; }
+.t3 .cv-header { display: flex; gap: 24px; align-items: center; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid #c9a84c44; }
+.t3 .cv-photo { width: 100px; height: 120px; object-fit: cover; border: 2px solid #c9a84c; border-radius: 6px; flex-shrink: 0; }
+.t3 .header-text { flex: 1; }
+.t3 h1 { font-family: 'Montserrat', sans-serif; font-size: 30px; font-weight: 900; color: #fff; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+.t3 .gold-line { width: 50px; height: 3px; background: #c9a84c; margin: 8px 0; }
+.t3 .subtitle { font-size: 12px; color: #c9a84c; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+.t3 .cv-contact { font-size: 12px; color: #8899aa; line-height: 1.8; }
+.t3 .sec { margin-bottom: 22px; }
+.t3 .sec-title { font-size: 11px; font-weight: 700; color: #c9a84c; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #c9a84c33; }
+.t3 p, .t3 li { font-size: 13px; color: #c8d0da; line-height: 1.7; }
+.t3 ul { padding-left: 18px; } .t3 li { margin-bottom: 5px; } .t3 li::marker { color: #c9a84c; }
+.t3 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.t3 .job-title { font-weight: 700; font-size: 14px; color: #fff; }
+.t3 .job-meta { font-size: 12px; color: #c9a84c; margin-bottom: 8px; }
+.t3 .row { display: flex; font-size: 13px; margin-bottom: 7px; }
+.t3 .lbl { font-weight: 700; min-width: 130px; color: #c9a84c; font-size: 12px; } .t3 .val { flex: 1; color: #c8d0da; font-size: 12px; }
+.t3 strong { color: #e8eaf0; }
+
+/* ── T4 SIDEBAR ── */
+.t4 .cv-page { display: flex; min-height: 297mm; box-shadow: 0 4px 30px rgba(0,0,0,0.15); background: white; overflow: hidden; }
+.t4 .sidebar { width: 220px; flex-shrink: 0; background: #1e3a5f; padding: 32px 20px; color: white; display: flex; flex-direction: column; gap: 22px; }
+.t4 .cv-photo { width: 100px; height: 120px; object-fit: cover; border-radius: 50%; border: 3px solid #4a90d9; display: block; margin: 0 auto 12px; }
+.t4 .sidebar h1 { font-size: 16px; font-weight: 700; color: white; text-align: center; margin-bottom: 4px; }
+.t4 .sidebar .subtitle { font-size: 10px; color: #4a90d9; text-align: center; letter-spacing: 1.5px; text-transform: uppercase; }
+.t4 .sidebar .sec-title { font-size: 9px; font-weight: 700; color: #4a90d9; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 10px; padding-bottom: 4px; border-bottom: 1px solid #4a90d933; }
+.t4 .sidebar p, .t4 .sidebar li { font-size: 11px; color: #b0c8e0; line-height: 1.7; }
+.t4 .sidebar ul { padding-left: 14px; } .t4 .sidebar li { margin-bottom: 4px; }
+.t4 .contact-item { font-size: 11px; color: #b0c8e0; margin-bottom: 5px; line-height: 1.5; }
+.t4 .main { flex: 1; padding: 32px 28px; }
+.t4 .sec { margin-bottom: 20px; }
+.t4 .main .sec-title { font-size: 11px; font-weight: 700; color: #1e3a5f; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 2px solid #1e3a5f; }
+.t4 p, .t4 .main li { font-size: 12.5px; color: #333; line-height: 1.7; }
+.t4 .main ul { padding-left: 17px; } .t4 .main li { margin-bottom: 4px; }
+.t4 .job-title { font-weight: 700; font-size: 13px; color: #1e3a5f; }
+.t4 .job-meta { font-size: 11px; color: #888; margin-bottom: 7px; }
+.t4 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.t4 .row { display: flex; font-size: 12px; margin-bottom: 6px; }
+.t4 .lbl { font-weight: 700; min-width: 110px; color: #1e3a5f; font-size: 11px; } .t4 .val { flex: 1; color: #444; font-size: 11px; }
+.t4 .skill-bar-wrap { margin-bottom: 8px; }
+.t4 .skill-name { font-size: 11px; color: #b0c8e0; margin-bottom: 3px; }
+.t4 .skill-bar { height: 4px; background: #2d5a8a; border-radius: 2px; }
+.t4 .skill-fill { height: 4px; background: #4a90d9; border-radius: 2px; }
+
+/* ── T5 CREATIVE ── */
+.t5 .cv-page { background: #fff; min-height: 297mm; box-shadow: 0 4px 30px rgba(0,0,0,0.12); overflow: hidden; }
+.t5 .cv-header { background: linear-gradient(135deg, #0f4c81 0%, #1a7a6e 100%); padding: 32px 36px; display: flex; align-items: center; gap: 24px; }
+.t5 .cv-photo { width: 100px; height: 120px; object-fit: cover; border-radius: 8px; border: 3px solid rgba(255,255,255,0.4); flex-shrink: 0; }
+.t5 .header-text { flex: 1; }
+.t5 h1 { font-size: 28px; font-weight: 900; color: white; letter-spacing: 1px; margin-bottom: 4px; }
+.t5 .subtitle { font-size: 11px; color: rgba(255,255,255,0.75); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+.t5 .cv-contact { font-size: 11px; color: rgba(255,255,255,0.85); line-height: 1.8; }
+.t5 .body { padding: 28px 36px; }
+.t5 .sec { margin-bottom: 20px; }
+.t5 .sec-title { font-size: 11px; font-weight: 800; color: #0f4c81; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.t5 .sec-title::after { content: ''; flex: 1; height: 2px; background: linear-gradient(to right, #0f4c81, transparent); }
+.t5 p, .t5 li { font-size: 12.5px; color: #333; line-height: 1.7; }
+.t5 ul { padding-left: 18px; } .t5 li { margin-bottom: 4px; } .t5 li::marker { color: #1a7a6e; }
+.t5 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.t5 .job-title { font-weight: 700; font-size: 13px; color: #0f4c81; }
+.t5 .job-meta { font-size: 11px; color: #1a7a6e; margin-bottom: 7px; font-weight: 600; }
+.t5 .row { display: flex; font-size: 12px; margin-bottom: 6px; }
+.t5 .lbl { font-weight: 700; min-width: 120px; color: #0f4c81; font-size: 12px; } .t5 .val { flex: 1; color: #444; font-size: 12px; }
+.t5 .tag { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 11px; margin: 2px; font-weight: 600; }
+.t5 .tag-blue { background: #e8f0fb; color: #0f4c81; } .t5 .tag-teal { background: #e0f5f2; color: #1a7a6e; }
+
+/* OBJECTIVE GOLD */
+.obj-title { color: #c9a84c !important; background: transparent !important; border-bottom: 2px solid #c9a84c !important; padding-left: 0 !important; }
+
+/* PRINT */
+@media print {
+    .toolbar { display: none !important; }
+    .cv-wrap { padding: 0 !important; }
+    body { background: white; }
+    .cv-page { box-shadow: none !important; }
+}
+@media (max-width: 600px) {
+    .t1 .grid2, .t2 .grid2, .t3 .grid2, .t5 .grid2 { grid-template-columns: 1fr; }
+    .t4 .cv-page { flex-direction: column; }
+    .t4 .sidebar { width: 100%; }
+    .t4 .grid2 { grid-template-columns: 1fr; }
+    .toolbar { gap: 5px; }
+    .tmpl-btn { padding: 5px 9px; font-size: 10px; }
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+    <span class="toolbar-label">Template</span>
+    <button class="tmpl-btn active" onclick="setTemplate(1)">① Classic</button>
+    <button class="tmpl-btn" onclick="setTemplate(2)">② Minimalist</button>
+    <button class="tmpl-btn" onclick="setTemplate(3)">③ Dark Gold</button>
+    <button class="tmpl-btn" onclick="setTemplate(4)">④ Sidebar</button>
+    <button class="tmpl-btn" onclick="setTemplate(5)">⑤ Creative</button>
+    <div class="lang-toggle">
+        <span id="btn-en" class="active" onclick="setLang('en')">🇬🇧 EN</span>
+        <span id="btn-mm" onclick="setLang('mm')">🇲🇲 MM</span>
+    </div>
+    <button class="print-btn" onclick="window.print()">📄 PDF</button>
+</div>
+
+<div class="cv-wrap" id="cv-wrap">
+    <div id="tmpl-root" contenteditable="true" spellcheck="false"></div>
+</div>
+
+<script>
+var DATA = {
+    en: {
+        name: "KYAW SWAR WINN",
+        role: "Junior Developer & System Maintainer",
+        phone: "09-788404048",
+        email: "zekyyyy2006@gmail.com",
+        address: "Yangon, Myanmar",
+        github: "github.com/yourusername",
+        objective: "Seeking a Junior Web Developer / Frontend Developer position where I can apply my scripting, automation, and AI-assisted development skills to build efficient and user-focused digital products.",
+        summary: "Results-driven Junior Developer and System Maintainer with hands-on experience in the online gaming and telemarketing industry. Delivered 100+ custom automation scripts and maintained 99.9% system uptime across high-traffic platforms. Proficient in web interface development, AI-assisted workflows, and cross-functional collaboration within a 20+ member team.",
+        techSkills: ["Web Dev: HTML5, CSS3, JavaScript (ES6)", "Mobile: Android WebView, Java (Android Studio)", "Systems: Cloudflare Workers, Git, Virtualization (VMOS)", "Automation: Script Development, Server Monitoring"],
+        softSkills: ["Analysis: Strategic Problem Solving", "Communication: Cross-team Collaboration", "Learning: Fast Tech Adaptability", "Work Ethic: Performance-driven Mindset"],
+        aiTools: "ChatGPT, Claude, Microsoft Copilot, Gemini",
+        aiExpertise: "Prompt Engineering for code debugging, Content Generation, and Automated Workflow optimization.",
+        jobTitle: "Senior Staff / System Maintainer",
+        jobCompany: "Online Gaming & Telemarketing Co., Ltd.",
+        jobPeriod: "2025 - Present",
+        jobBullets: [
+            "Maintained 99.9% system uptime by monitoring and resolving high-frequency traffic issues in real time.",
+            "Developed and deployed 100+ custom JS/HTML automation scripts, streamlining promotional workflows.",
+            "Collaborated with a 20+ member team to implement data-driven strategies that improved operational efficiency."
+        ],
+        eduTitle: "Middle School Certificate (Grade 9)",
+        eduPlace: "Myanmar Basic Education",
+        eduYear: "Completed 2022",
+        eduNote: "Self-directed continuous learning in Web Development, JavaScript, and Mobile App Development through online resources and hands-on project building.",
+        dob: "October 5, 2006",
+        langs: "Burmese (Native) | English (Pre-Intermediate, B1)",
+        photo: "https://i.ibb.co/Zz2rhXMr/IMG-20260418-173051-731.jpg"
+    },
+    mm: {
+        name: "ကျော်စွာဝင်း",
+        role: "Junior Developer & System ထိန်းသိမ်းသူ",
+        phone: "09-788404048",
+        email: "zekyyyy2006@gmail.com",
+        address: "ရန်ကုန်၊ မြန်မာနိုင်ငံ",
+        github: "github.com/yourusername",
+        objective: "ကိုယ်ရေးကိုယ်တာ Script Automation၊ Web Development နှင့် AI Tools ကျွမ်းကျင်မှုများကို အသုံးချ၍ Junior Web Developer / Frontend Developer အဖြစ် ဝင်ရောက်လုပ်ကိုင်ရန် ရည်ရွယ်သည်။",
+        summary: "Online Gaming နှင့် Telemarketing လုပ်ငန်းနယ်ပယ်တွင် လက်တွေ့အတွေ့အကြုံရှိသော Junior Developer နှင့် System Maintainer တစ်ဦးဖြစ်သည်။ Automation Script ၁၀၀ကျော် ရေးသားတင်ဆက်ခဲ့ပြီး မြင့်မားသော Traffic ပေါ်တွင် စနစ်တည်ငြိမ်မှု ၉၉.၉% ထိန်းသိမ်းနိုင်သည်။ အဖွဲ့ဝင် ၂၀ကျော်ပါဝင်သောအဖွဲ့တွင် Web Development၊ AI Tools နှင့် Team Collaboration တို့ကို ကျွမ်းကျင်စွာ အသုံးပြုနိုင်သည်။",
+        techSkills: ["ဝဘ်ဆိုဒ်: HTML5, CSS3, JavaScript (ES6)", "မိုဘိုင်း: Android WebView, Java (Android Studio)", "စနစ်: Cloudflare Workers, Git, Virtualization (VMOS)", "အလိုအလျောက်: Script Development, Server Monitoring"],
+        softSkills: ["ခွဲခြမ်းစိတ်ဖြာမှု: နည်းဗျူဟာကျ ပြဿနာဖြေရှင်းနိုင်ခြင်း", "ဆက်သွယ်ရေး: အဖွဲ့တစ်ဖွဲ့လုံးနှင့် ပူးပေါင်းဆောင်ရွက်ခြင်း", "သင်ယူနိုင်မှု: နည်းပညာသစ်များကို မြန်ဆန်စွာ လိုက်လျောနိုင်ခြင်း", "လုပ်ငန်းကျင့်ဝတ်: ရလဒ်ကိုဦးစားပေးသောစိတ်ဓာတ်"],
+        aiTools: "ChatGPT, Claude, Microsoft Copilot, Gemini",
+        aiExpertise: "Code စစ်ဆေးရေးအတွက် Prompt Engineering၊ အကြောင်းအရာဖန်တီးခြင်းနှင့် အလိုအလျောက်လုပ်ဆောင်မှု Optimization ပြုလုပ်ခြင်း။",
+        jobTitle: "အဆင့်မြင့်ဝန်ထမ်း / System ထိန်းသိမ်းသူ",
+        jobCompany: "Online Gaming & Telemarketing Co., Ltd.",
+        jobPeriod: "၂၀၂၅ - ယခုအချိန်",
+        jobBullets: [
+            "မြင့်မားသော Traffic ပြဿနာများကို Real-time ဖြေရှင်း၍ စနစ်တည်ငြိမ်မှု ၉၉.၉% ရရှိအောင် ဆောင်ရွက်ခဲ့သည်။",
+            "Promotional လုပ်ငန်းစဉ်များ ချောမွေ့စေရန် Custom JS/HTML Automation Script ၁၀၀ကျော် ရေးသားတင်ဆက်ခဲ့သည်။",
+            "အဖွဲ့ဝင် ၂၀ကျော်နှင့် ပူးပေါင်း၍ Data ကိုအခြေခံသောနည်းဗျူဟာများဖြင့် User Engagement တိုးတက်အောင် ဆောင်ရွက်ခဲ့သည်။"
+        ],
+        eduTitle: "မူလတန်းလွန် အောင်လက်မှတ် (၉တန်း)",
+        eduPlace: "မြန်မာ အခြေခံပညာ",
+        eduYear: "၂၀၂၂ ပြည့်နှစ် ပြီးဆုံး",
+        eduNote: "Web Development၊ JavaScript နှင့် Mobile App Development တို့ကို Online သင်ခန်းစာများနှင့် လက်တွေ့ Project များမှတဆင့် ကိုယ်တိုင်ဆက်လက်လေ့လာနေဆဲဖြစ်သည်။",
+        dob: "အောက်တိုဘာ ၅၊ ၂၀၀၆",
+        langs: "မြန်မာ (မိခင်ဘာသာ) | အင်္ဂလိပ် (အလယ်အလတ်အောက် B1)",
+        photo: "https://i.ibb.co/Zz2rhXMr/IMG-20260418-173051-731.jpg"
+    }
+};
+
+function li(arr) { return arr.map(function(s){ return '<li>'+s+'</li>'; }).join(''); }
+
+function buildT1(d) {
+    return '<div class="cv-page">'
+        +'<div class="cv-header"><img src="'+d.photo+'" class="cv-photo" alt="Photo"><h1>'+d.name+'</h1>'
+        +'<div class="cv-contact">'+d.phone+' | '+d.email+'<br>'+d.address+'<br>GitHub: '+d.github+'</div></div>'
+        +'<div class="sec"><div class="sec-title obj-title">Objective</div><p>'+d.objective+'</p></div>'
+        +'<div class="sec"><div class="sec-title">Professional Summary</div><p>'+d.summary+'</p></div>'
+        +'<div class="grid2">'
+        +'<div class="sec"><div class="sec-title">Technical Skills</div><ul>'+li(d.techSkills)+'</ul></div>'
+        +'<div class="sec"><div class="sec-title">Soft Skills</div><ul>'+li(d.softSkills)+'</ul></div>'
+        +'</div>'
+        +'<div class="sec"><div class="sec-title">AI Tools Proficiency</div>'
+        +'<div class="row"><span class="lbl">Tools:</span><span class="val">'+d.aiTools+'</span></div>'
+        +'<div class="row"><span class="lbl">Expertise:</span><span class="val">'+d.aiExpertise+'</span></div></div>'
+        +'<div class="sec"><div class="sec-title">Work Experience</div>'
+        +'<div class="job-title">'+d.jobTitle+'</div>'
+        +'<div class="job-meta">'+d.jobCompany+' | '+d.jobPeriod+'</div>'
+        +'<ul>'+li(d.jobBullets)+'</ul></div>'
+        +'<div class="sec"><div class="sec-title">Education</div>'
+        +'<div class="job-title">'+d.eduTitle+'</div>'
+        +'<div class="job-meta">'+d.eduPlace+' | '+d.eduYear+'</div>'
+        +'<ul><li>'+d.eduNote+'</li></ul></div>'
+        +'<div class="sec"><div class="sec-title">Personal Details</div>'
+        +'<div class="row"><span class="lbl">Date of Birth:</span><span class="val">'+d.dob+'</span></div>'
+        +'<div class="row"><span class="lbl">Languages:</span><span class="val">'+d.langs+'</span></div>'
+        +'</div></div>';
+}
+
+function buildT2(d) {
+    return '<div class="cv-page">'
+        +'<div class="cv-header"><img src="'+d.photo+'" class="cv-photo" alt="Photo">'
+        +'<div class="header-text"><h1>'+d.name+'</h1><div class="subtitle">'+d.role+'</div>'
+        +'<div class="cv-contact"><span>'+d.phone+'</span><span>'+d.email+'</span><br><span>'+d.address+'</span><span>'+d.github+'</span></div>'
+        +'</div></div>'
+        +'<div class="sec"><div class="sec-title obj-title">Objective</div><p>'+d.objective+'</p></div>'
+        +'<div class="sec"><div class="sec-title">Profile</div><p>'+d.summary+'</p></div>'
+        +'<div class="grid2">'
+        +'<div class="sec"><div class="sec-title">Technical Skills</div><ul>'+li(d.techSkills)+'</ul></div>'
+        +'<div class="sec"><div class="sec-title">Soft Skills</div><ul>'+li(d.softSkills)+'</ul></div>'
+        +'</div>'
+        +'<div class="sec"><div class="sec-title">AI Proficiency</div>'
+        +'<div><span class="tag">ChatGPT</span><span class="tag">Claude</span><span class="tag">Copilot</span><span class="tag">Gemini</span></div>'
+        +'<p style="margin-top:8px">'+d.aiExpertise+'</p></div>'
+        +'<div class="sec"><div class="sec-title">Experience</div>'
+        +'<div class="job-title">'+d.jobTitle+'</div>'
+        +'<div class="job-meta">'+d.jobCompany+' · '+d.jobPeriod+'</div>'
+        +'<ul>'+li(d.jobBullets)+'</ul></div>'
+        +'<div class="sec"><div class="sec-title">Education</div>'
+        +'<div class="job-title">'+d.eduTitle+'</div>'
+        +'<div class="job-meta">'+d.eduPlace+' · '+d.eduYear+'</div>'
+        +'<ul><li>'+d.eduNote+'</li></ul></div>'
+        +'<div class="sec"><div class="sec-title">Details</div>'
+        +'<div class="row"><span class="lbl">Date of Birth</span><span class="val">'+d.dob+'</span></div>'
+        +'<div class="row"><span class="lbl">Languages</span><span class="val">'+d.langs+'</span></div>'
+        +'</div></div>';
+}
+
+function buildT3(d) {
+    return '<div class="cv-page">'
+        +'<div class="cv-header"><img src="'+d.photo+'" class="cv-photo" alt="Photo">'
+        +'<div class="header-text"><h1>'+d.name+'</h1><div class="gold-line"></div>'
+        +'<div class="subtitle">'+d.role+'</div>'
+        +'<div class="cv-contact">'+d.phone+' · '+d.email+'<br>'+d.address+' · '+d.github+'</div>'
+        +'</div></div>'
+        +'<div class="sec"><div class="sec-title obj-title">Objective</div><p>'+d.objective+'</p></div>'
+        +'<div class="sec"><div class="sec-title">Professional Summary</div><p>'+d.summary+'</p></div>'
+        +'<div class="grid2">'
+        +'<div class="sec"><div class="sec-title">Technical Skills</div><ul>'+li(d.techSkills)+'</ul></div>'
+        +'<div class="sec"><div class="sec-title">Soft Skills</div><ul>'+li(d.softSkills)+'</ul></div>'
+        +'</div>'
+        +'<div class="sec"><div class="sec-title">AI Tools</div>'
+        +'<div class="row"><span class="lbl">Tools:</span><span class="val">'+d.aiTools+'</span></div>'
+        +'<div class="row"><span class="lbl">Expertise:</span><span class="val">'+d.aiExpertise+'</span></div></div>'
+        +'<div class="sec"><div class="sec-title">Work Experience</div>'
+        +'<div class="job-title">'+d.jobTitle+'</div>'
+        +'<div class="job-meta">'+d.jobCompany+' · '+d.jobPeriod+'</div>'
+        +'<ul>'+li(d.jobBullets)+'</ul></div>'
+        +'<div class="sec"><div class="sec-title">Education</div>'
+        +'<div class="job-title">'+d.eduTitle+'</div>'
+        +'<div class="job-meta">'+d.eduPlace+' · '+d.eduYear+'</div>'
+        +'<ul><li>'+d.eduNote+'</li></ul></div>'
+        +'<div class="sec"><div class="sec-title">Personal Details</div>'
+        +'<div class="row"><span class="lbl">Date of Birth:</span><span class="val">'+d.dob+'</span></div>'
+        +'<div class="row"><span class="lbl">Languages:</span><span class="val">'+d.langs+'</span></div>'
+        +'</div></div>';
+}
+
+function buildT4(d) {
+    return '<div class="cv-page">'
+        +'<div class="sidebar">'
+        +'<div><img src="'+d.photo+'" class="cv-photo" alt="Photo"><h1>'+d.name+'</h1><div class="subtitle">'+d.role+'</div></div>'
+        +'<div><div class="sec-title">Contact</div>'
+        +'<div class="contact-item">'+d.phone+'</div>'
+        +'<div class="contact-item">'+d.email+'</div>'
+        +'<div class="contact-item">'+d.address+'</div>'
+        +'<div class="contact-item">'+d.github+'</div></div>'
+        +'<div><div class="sec-title">Skills</div>'
+        +'<div class="skill-bar-wrap"><div class="skill-name">HTML / CSS</div><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></div>'
+        +'<div class="skill-bar-wrap"><div class="skill-name">JavaScript</div><div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div></div>'
+        +'<div class="skill-bar-wrap"><div class="skill-name">Android WebView</div><div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div></div>'
+        +'<div class="skill-bar-wrap"><div class="skill-name">Script Automation</div><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>'
+        +'<div class="skill-bar-wrap"><div class="skill-name">Git / Cloudflare</div><div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div></div>'
+        +'</div>'
+        +'<div><div class="sec-title">AI Tools</div><ul><li>ChatGPT</li><li>Claude</li><li>Copilot</li><li>Gemini</li></ul></div>'
+        +'<div><div class="sec-title">Languages</div><p>'+d.langs+'</p></div>'
+        +'<div><div class="sec-title">Personal</div><p>DOB: '+d.dob+'</p></div>'
+        +'</div>'
+        +'<div class="main">'
+        +'<div class="sec"><div class="sec-title obj-title">Objective</div><p>'+d.objective+'</p></div>'
+        +'<div class="sec"><div class="sec-title">Profile</div><p>'+d.summary+'</p></div>'
+        +'<div class="sec"><div class="sec-title">Work Experience</div>'
+        +'<div class="job-title">'+d.jobTitle+'</div>'
+        +'<div class="job-meta">'+d.jobCompany+' · '+d.jobPeriod+'</div>'
+        +'<ul>'+li(d.jobBullets)+'</ul></div>'
+        +'<div class="sec"><div class="sec-title">Education</div>'
+        +'<div class="job-title">'+d.eduTitle+'</div>'
+        +'<div class="job-meta">'+d.eduPlace+' · '+d.eduYear+'</div>'
+        +'<ul><li>'+d.eduNote+'</li></ul></div>'
+        +'<div class="grid2">'
+        +'<div class="sec"><div class="sec-title">Soft Skills</div><ul>'+li(d.softSkills)+'</ul></div>'
+        +'<div class="sec"><div class="sec-title">AI Expertise</div><p>'+d.aiExpertise+'</p></div>'
+        +'</div>'
+        +'</div></div>';
+}
+
+function buildT5(d) {
+    return '<div class="cv-page">'
+        +'<div class="cv-header"><img src="'+d.photo+'" class="cv-photo" alt="Photo">'
+        +'<div class="header-text"><h1>'+d.name+'</h1><div class="subtitle">'+d.role+'</div>'
+        +'<div class="cv-contact">'+d.phone+' · '+d.email+'<br>'+d.address+' · '+d.github+'</div>'
+        +'</div></div>'
+        +'<div class="body">'
+        +'<div class="sec"><div class="sec-title obj-title">Objective</div><p>'+d.objective+'</p></div>'
+        +'<div class="sec"><div class="sec-title">Profile</div><p>'+d.summary+'</p></div>'
+        +'<div class="grid2">'
+        +'<div class="sec"><div class="sec-title">Technical Skills</div><ul>'+li(d.techSkills)+'</ul></div>'
+        +'<div class="sec"><div class="sec-title">Soft Skills</div><ul>'+li(d.softSkills)+'</ul></div>'
+        +'</div>'
+        +'<div class="sec"><div class="sec-title">AI Proficiency</div>'
+        +'<div style="margin-bottom:6px"><span class="tag tag-blue">ChatGPT</span><span class="tag tag-blue">Claude</span><span class="tag tag-teal">Copilot</span><span class="tag tag-teal">Gemini</span></div>'
+        +'<p>'+d.aiExpertise+'</p></div>'
+        +'<div class="sec"><div class="sec-title">Work Experience</div>'
+        +'<div class="job-title">'+d.jobTitle+'</div>'
+        +'<div class="job-meta">'+d.jobCompany+' · '+d.jobPeriod+'</div>'
+        +'<ul>'+li(d.jobBullets)+'</ul></div>'
+        +'<div class="sec"><div class="sec-title">Education</div>'
+        +'<div class="job-title">'+d.eduTitle+'</div>'
+        +'<div class="job-meta">'+d.eduPlace+' · '+d.eduYear+'</div>'
+        +'<ul><li>'+d.eduNote+'</li></ul></div>'
+        +'<div class="sec"><div class="sec-title">Personal Details</div>'
+        +'<div class="row"><span class="lbl">Date of Birth:</span><span class="val">'+d.dob+'</span></div>'
+        +'<div class="row"><span class="lbl">Languages:</span><span class="val">'+d.langs+'</span></div>'
+        +'</div></div></div>';
+}
+
+var currentTemplate = 1;
+var currentLang = 'en';
+var builders = {1:buildT1, 2:buildT2, 3:buildT3, 4:buildT4, 5:buildT5};
+var tClasses = {1:'t1', 2:'t2', 3:'t3', 4:'t4', 5:'t5'};
+
+function render() {
+    var wrap = document.getElementById('cv-wrap');
+    var d = DATA[currentLang];
+    wrap.className = 'cv-wrap ' + tClasses[currentTemplate] + (currentLang === 'mm' ? ' mm-font' : '');
+    document.getElementById('tmpl-root').innerHTML = builders[currentTemplate](d);
+}
+
+function setTemplate(n) {
+    currentTemplate = n;
+    var btns = document.querySelectorAll('.tmpl-btn');
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].classList.toggle('active', i + 1 === n);
+    }
+    render();
+}
+
+function setLang(l) {
+    currentLang = l;
+    document.getElementById('btn-en').classList.toggle('active', l === 'en');
+    document.getElementById('btn-mm').classList.toggle('active', l === 'mm');
+    render();
+}
+
+render();
+</script>
+</body>
+</html>
