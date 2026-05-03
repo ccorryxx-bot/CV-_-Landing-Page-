@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CV - Kyaw Swar Winn</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&family=Montserrat:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #e8eaf0; font-family: 'Inter', sans-serif; min-height: 100vh; }
+
+/* TOOLBAR */
+.toolbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+    background: #1a1a2e; padding: 10px 16px;
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+.toolbar-label { color: #aaa; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+.tb-btn {
+    padding: 7px 14px; border: 1.5px solid #444; background: transparent;
+    color: #ccc; border-radius: 20px; cursor: pointer; font-size: 12px;
+    font-weight: 600; transition: all 0.2s; white-space: nowrap;
+}
+.tb-btn:hover { border-color: #888; color: white; }
+.tb-btn.active { background: #3498db; border-color: #3498db; color: white; }
+.tb-btn.dashboard-btn { background: #8e44ad; border-color: #8e44ad; color: white; font-size: 13px; }
+.tb-btn.dashboard-btn:hover { background: #9b59b6; }
+.print-btn { padding: 7px 16px; background: #27ae60; color: white; border: none; border-radius: 20px; cursor: pointer; font-size: 12px; font-weight: 700; margin-left: auto; }
+
+/* DASHBOARD MODAL */
+.modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 2000;
+    background: rgba(0,0,0,0.7); align-items: center; justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+    background: #1e1e30; border-radius: 16px; padding: 32px;
+    max-width: 480px; width: 92%; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.modal h2 { color: white; font-size: 18px; margin-bottom: 6px; }
+.modal p { color: #888; font-size: 12px; margin-bottom: 24px; }
+.cv-cards { display: flex; flex-direction: column; gap: 12px; }
+.cv-card {
+    background: #2a2a45; border: 2px solid #333; border-radius: 12px;
+    padding: 18px 20px; cursor: pointer; transition: all 0.2s;
+}
+.cv-card:hover { border-color: #3498db; background: #2e2e50; }
+.cv-card.selected { border-color: #3498db; background: #1e3a55; }
+.cv-card-title { color: white; font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.cv-card-sub { color: #888; font-size: 12px; }
+.cv-card-tags { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+.cv-tag { padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+.tag-blue { background: #1a4a7a; color: #7ab8f5; }
+.tag-green { background: #1a4a2a; color: #7af5a0; }
+.tag-orange { background: #4a2a1a; color: #f5c07a; }
+.modal-close { margin-top: 20px; width: 100%; padding: 12px; background: #333; color: #aaa; border: none; border-radius: 10px; cursor: pointer; font-size: 13px; }
+.modal-close:hover { background: #444; color: white; }
+.cv-indicator { color: #3498db; font-size: 11px; font-weight: 700; }
+
+/* WRAP */
+.cv-wrap { padding: 80px 16px 30px; }
+
+/* PAGE 1 */
+.page1 {
+    display: none; width: 210mm; min-height: 297mm; margin: auto;
+    background: white; padding: 50px 50px 40px;
+    font-family: 'Pyidaungsu','Myanmar Text','Padauk',sans-serif;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12); margin-bottom: 20px; position: relative;
+}
+.page1-photo { width: 110px; height: 130px; object-fit: cover; border: 1px solid #555; position: absolute; top: 20px; right: 50px; }
+.page1-title { text-align: center; font-size: 17px; font-weight: bold; text-decoration: underline; margin-bottom: 32px; color: #c9a84c; padding-right: 130px; }
+.page1-row { display: flex; align-items: flex-start; margin-bottom: 20px; font-size: 13.5px; color: #000; }
+.page1-label { min-width: 220px; font-weight: 500; }
+.page1-colon { margin: 0 10px; }
+.page1-value { flex: 1; border-bottom: 1px dashed #999; min-height: 20px; padding-bottom: 2px; }
+.page1-blank { flex: 1; border-bottom: 1px dashed #999; min-height: 20px; }
+.page1-sig { text-align: right; margin-top: 36px; font-size: 13px; color: #555; }
+.page1-fancy-k { font-family: 'Dancing Script','Brush Script MT',cursive; font-size: 38px; color: #2c3e50; font-weight: 700; line-height: 1; display: block; margin-top: 4px; }
+
+/* ── T1 CLASSIC ── */
+.t1 .cv-page { background: white; padding: 36px; box-shadow: 0 4px 20px rgba(0,0,0,0.12); min-height: 297mm; max-width: 210mm; margin: auto; }
+.t1 .cv-header { border-bottom: 4px solid #2c3e50; padding-bottom: 18px; margin-bottom: 18px; overflow: hidden; }
+.t1 .cv-photo { width: 110px; height: 130px; float: right; border: 2px solid #2c3e50; border-radius: 4px; object-fit: cover; margin-left: 20px; }
+.t1 h1 { font-size: 26px; color: #2c3e50; letter-spacing: 1px; margin-bottom: 4px; }
+.t1 .cv-role { font-size: 13px; color: #888; margin-bottom: 8px; }
+.t1 .cv-contact { font-size: 13px; color: #555; line-height: 1.7; }
+.t1 .sec-title { font-size: 13px; font-weight: 700; color: white; background: #2c3e50; padding: 5px 14px; margin-bottom: 10px; text-transform: uppercase; border-radius: 2px; }
+.t1 .obj-title { color: #c9a84c !important; background: transparent !important; border-bottom: 2px solid #c9a84c !important; padding-left: 0 !important; }
+.t1 .sec { margin-bottom: 18px; }
+.t1 p, .t1 li { font-size: 13px; color: #333; line-height: 1.65; }
+.t1 ul { padding-left: 18px; } .t1 li { margin-bottom: 4px; }
+.t1 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.t1 .row { display: flex; font-size: 13px; margin-bottom: 7px; }
+.t1 .lbl { font-weight: 700; min-width: 130px; color: #000; } .t1 .val { flex: 1; color: #333; }
+.t1 .job-title { font-weight: 700; font-size: 14px; color: #222; }
+.t1 .job-meta { font-style: italic; color: #666; font-size: 12px; margin-bottom: 7px; }
+
+/* ── T2 MINIMALIST ── */
+.t2 .cv-page { background: #fafafa; padding: 48px 52px; box-shadow: 0 2px 30px rgba(0,0,0,0.08); min-height: 297mm; max-width: 210mm; margin: auto; }
+.t2 .cv-header { display: flex; align-items: flex-start; gap: 28px; margin-bottom: 30px; padding-bottom: 24px; border-bottom: 1px solid #e0e0e0; }
+.t2 .cv-photo { width: 90px; height: 108px; border-radius: 50%; object-fit: cover; border: 3px solid #111; flex-shrink: 0; }
+.t2 .header-text { flex: 1; }
+.t2 h1 { font-family: 'Playfair Display', serif; font-size: 32px; color: #111; margin-bottom: 4px; }
+.t2 .cv-role { font-size: 12px; color: #888; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+.t2 .cv-contact { font-size: 12px; color: #666; line-height: 1.8; }
+.t2 .sec { margin-bottom: 22px; }
+.t2 .sec-title { font-size: 10px; font-weight: 700; color: #aaa; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #eee; }
+.t2 .obj-title { color: #c9a84c !important; border-bottom-color: #c9a84c !important; }
+.t2 p, .t2 li { font-size: 13px; color: #444; line-height: 1.7; font-weight: 300; }
+.t2 ul { padding-left: 16px; } .t2 li { margin-bottom: 5px; }
+.t2 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.t2 .job-title { font-weight: 600; font-size: 14px; color: #111; }
+.t2 .job-meta { font-size: 11px; color: #999; margin-bottom: 8px; }
+.t2 .row { display: flex; font-size: 13px; margin-bottom: 6px; }
+.t2 .lbl { font-weight: 600; min-width: 120px; color: #111; font-size: 12px; } .t2 .val { flex: 1; color: #555; font-size: 12px; }
+.t2 .tag { display: inline-block; background: #f0f0f0; color: #333; padding: 3px 10px; border-radius: 12px; font-size: 11px; margin: 2px; }
+
+/* ── T3 DARK GOLD ── */
+.t3 .cv-page { background: #0d1117; padding: 40px; box-shadow: 0 4px 30px rgba(0,0,0,0.5); min-height: 297mm; max-width: 210mm; margin: auto; }
+.t3 .cv-header { display: flex; gap: 24px; align-items: center; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid #c9a84c44; }
+.t3 .cv-photo { width: 100px; height: 120px; object-fit: cover; border: 2px solid #c9a84c; border-radius: 6px; flex-shrink: 0; }
+.t3 h1 { font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 900; color: #fff; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+.t3 .gold-line { width: 50px; height: 3px; background: #c9a84c; margin: 8px 0; }
+.t3 .cv-role { font-size: 12px; color: #c9a84c; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+.t3 .cv-contact { font-size: 12px; color: #8899aa; line-height: 1.8; }
+.t3 .sec { margin-bottom: 22px; }
+.t3 .sec-title { font-size: 11px; font-weight: 700; color: #c9a84c; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #c9a84c33; }
+.t3 p, .t3 li { font-size: 13px; color: #c8d0da; line-height: 1.7; }
+.t3 ul { padding-left: 18px; } .t3 li { margin-bottom: 5px; } .t3 li::marker { color: #c9a84c; }
+.t3 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.t3 .job-title { font-weight: 700; font-size: 14px; color: #fff; }
+.t3 .job-meta { font-size: 12px; color: #c9a84c; margin-bottom: 8px; }
+.t3 .row { display: flex; font-size: 13px; margin-bottom: 7px; }
+.t3 .lbl { font-weight: 700; min-width: 130px; color: #c9a84c; font-size: 12px; } .t3 .val { flex: 1; color: #c8d0da; font-size: 12px; }
+
+/* ── T4 SIDEBAR ── */
+.t4 .cv-page { display: flex; min-height: 297mm; max-width: 210mm; margin: auto; box-shadow: 0 4px 30px rgba(0,0,0,0.15); background: white; overflow: hidden; }
+.t4 .sidebar { width: 220px; flex-shrink: 0; background: #1e3a5f; padding: 32px 20px; color: white; display: flex; flex-direction: column; gap: 20px; }
+.t4 .cv-photo { width: 100px; height: 120px; object-fit: cover; border-radius: 50%; border: 3px solid #4a90d9; display: block; margin: 0 auto 12px; }
+.t4 .sidebar h1 { font-size: 15px; font-weight: 700; color: white; text-align: center; margin-bottom: 4px; }
+.t4 .sidebar .cv-role { font-size: 10px; color: #4a90d9; text-align: center; letter-spacing: 1px; text-transform: uppercase; }
+.t4 .sidebar .sec-title { font-size: 9px; font-weight: 700; color: #4a90d9; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid #4a90d933; }
+.t4 .sidebar p, .t4 .sidebar li { font-size: 11px; color: #b0c8e0; line-height: 1.7; }
+.t4 .sidebar ul { padding-left: 14px; } .t4 .sidebar li { margin-bottom: 3px; }
+.t4 .contact-item { font-size: 11px; color: #b0c8e0; margin-bottom: 5px; }
+.t4 .main { flex: 1; padding: 28px 24px; }
+.t4 .sec { margin-bottom: 18px; }
+.t4 .main .sec-title { font-size: 11px; font-weight: 700; color: #1e3a5f; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 2px solid #1e3a5f; }
+.t4 .main .obj-title { color: #c9a84c !important; border-bottom-color: #c9a84c !important; }
+.t4 p, .t4 .main li { font-size: 12.5px; color: #333; line-height: 1.7; }
+.t4 .main ul { padding-left: 17px; } .t4 .main li { margin-bottom: 4px; }
+.t4 .job-title { font-weight: 700; font-size: 13px; color: #1e3a5f; }
+.t4 .job-meta { font-size: 11px; color: #888; margin-bottom: 7px; }
+.t4 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.t4 .skill-bar-wrap { margin-bottom: 8px; }
+.t4 .skill-name { font-size: 11px; color: #b0c8e0; margin-bottom: 3px; }
+.t4 .skill-bar { height: 4px; background: #2d5a8a; border-radius: 2px; }
+.t4 .skill-fill { height: 4px; background: #4a90d9; border-radius: 2px; }
+
+/* ── T5 CREATIVE ── */
+.t5 .cv-page { background: #fff; min-height: 297mm; max-width: 210mm; margin: auto; box-shadow: 0 4px 30px rgba(0,0,0,0.12); overflow: hidden; }
+.t5 .cv-header { background: linear-gradient(135deg, #0f4c81, #1a7a6e); padding: 30px 36px; display: flex; align-items: center; gap: 24px; }
+.t5 .cv-photo { width: 100px; height: 120px; object-fit: cover; border-radius: 8px; border: 3px solid rgba(255,255,255,0.4); flex-shrink: 0; }
+.t5 h1 { font-size: 26px; font-weight: 900; color: white; letter-spacing: 1px; margin-bottom: 4px; }
+.t5 .cv-role { font-size: 11px; color: rgba(255,255,255,0.75); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+.t5 .cv-contact { font-size: 11px; color: rgba(255,255,255,0.85); line-height: 1.8; }
+.t5 .body { padding: 24px 36px; }
+.t5 .sec { margin-bottom: 18px; }
+.t5 .sec-title { font-size: 11px; font-weight: 800; color: #0f4c81; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.t5 .sec-title::after { content: ''; flex: 1; height: 2px; background: linear-gradient(to right, #0f4c81, transparent); }
+.t5 .obj-title { color: #c9a84c !important; }
+.t5 .obj-title::after { background: linear-gradient(to right, #c9a84c, transparent) !important; }
+.t5 p, .t5 li { font-size: 12.5px; color: #333; line-height: 1.7; }
+.t5 ul { padding-left: 18px; } .t5 li { margin-bottom: 4px; } .t5 li::marker { color: #1a7a6e; }
+.t5 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.t5 .job-title { font-weight: 700; font-size: 13px; color: #0f4c81; }
+.t5 .job-meta { font-size: 11px; color: #1a7a6e; margin-bottom: 7px; font-weight: 600; }
+
+/* PRINT */
+@media print {
+    .modal-overlay, .toolbar { display: none !important; }
+    .cv-wrap { padding: 0 !important; }
+    .page1 { display: block !important; page-break-after: always; box-shadow: none; margin: 0; width: 100%; }
+    #cv-wrap { display: block !important; }
+    body { background: white; }
+    .t1 .cv-page, .t2 .cv-page, .t3 .cv-page, .t4 .cv-page, .t5 .cv-page { box-shadow: none !important; }
+}
+@media (max-width: 600px) {
+    .t1 .grid2, .t2 .grid2, .t3 .grid2, .t5 .grid2 { grid-template-columns: 1fr; }
+    .t4 .cv-page { flex-direction: column; }
+    .t4 .sidebar { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+    <span class="toolbar-label">Page</span>
+    <button class="tb-btn active" id="pg1-btn" onclick="setPage(1)">📋 Page 1</button>
+    <button class="tb-btn" id="pg2-btn" onclick="setPage(2)">📄 Page 2</button>
+    <button class="tb-btn dashboard-btn" onclick="openDashboard()">⚡ Dashboard</button>
+    <button class="print-btn" onclick="window.print()">📄 PDF</button>
+</div>
+
+<!-- DASHBOARD MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeOnBg(event)">
+    <div class="modal">
+        <!-- STEP 1: CV Selection -->
+        <div id="step1">
+            <h2>⚡ Dashboard</h2>
+            <p>Select the CV version for the position you are applying for.</p>
+            <div class="cv-cards">
+                <div class="cv-card" id="card-dev" onclick="selectCV('cvA')">
+                    <div class="cv-card-title">💻 Developer / Tech</div>
+                    <div class="cv-card-sub">Frontend & System Maintainer — Tech skills first</div>
+                    <div class="cv-card-tags">
+                        <span class="cv-tag tag-blue">HTML / CSS / JS</span>
+                        <span class="cv-tag tag-blue">Automation</span>
+                        <span class="cv-tag tag-blue">AI Tools</span>
+                    </div>
+                </div>
+                <div class="cv-card" id="card-sales" onclick="selectCV('cvB')">
+                    <div class="cv-card-title">📈 Sales & Marketing</div>
+                    <div class="cv-card-sub">Customer relations & communication — People skills first</div>
+                    <div class="cv-card-tags">
+                        <span class="cv-tag tag-green">Persuasion</span>
+                        <span class="cv-tag tag-green">CRM</span>
+                        <span class="cv-tag tag-green">Campaign Ops</span>
+                    </div>
+                </div>
+                <div class="cv-card" id="card-gen" onclick="selectCV('cvC')">
+                    <div class="cv-card-title">🌐 General Purpose</div>
+                    <div class="cv-card-sub">Balanced skills showcase — Fits any entry-level role</div>
+                    <div class="cv-card-tags">
+                        <span class="cv-tag tag-orange">Adaptable</span>
+                        <span class="cv-tag tag-orange">Multi-skilled</span>
+                        <span class="cv-tag tag-orange">Growth Mindset</span>
+                    </div>
+                </div>
+            </div>
+            <button class="modal-close" onclick="closeDashboard()">✕ Close</button>
+        </div>
+
+        <!-- STEP 2: Template Selection -->
+        <div id="step2" style="display:none;">
+            <h2>🎨 Choose Template</h2>
+            <p id="step2-sub">Selected: <span id="cv-label" style="color:#3498db;font-weight:700;"></span></p>
+            <div class="cv-cards">
+                <div class="cv-card" onclick="pickTemplate(1)"><div class="cv-card-title">① Classic</div><div class="cv-card-sub">Professional dark header, structured layout</div></div>
+                <div class="cv-card" onclick="pickTemplate(2)"><div class="cv-card-title">② Minimalist</div><div class="cv-card-sub">Clean white, Playfair font, elegant spacing</div></div>
+                <div class="cv-card" onclick="pickTemplate(3)"><div class="cv-card-title">③ Dark Gold</div><div class="cv-card-sub">Dark navy background, gold accents</div></div>
+                <div class="cv-card" onclick="pickTemplate(4)"><div class="cv-card-title">④ Sidebar</div><div class="cv-card-sub">Blue sidebar with skill bars, modern split layout</div></div>
+                <div class="cv-card" onclick="pickTemplate(5)"><div class="cv-card-title">⑤ Creative</div><div class="cv-card-sub">Teal-navy gradient header, bold section lines</div></div>
+            </div>
+            <button class="modal-close" onclick="backToStep1()">← Back</button>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 1 -->
+<div class="page1" id="page1-wrap" style="display:block; margin-top:70px;" contenteditable="true" spellcheck="false">
+    <div class="page1-title">Personal Details / ကိုယ်ရေးရာဇဝင်အကျဉ်း</div>
+    <img src="https://i.ibb.co/Zz2rhXMr/IMG-20260418-173051-731.jpg" class="page1-photo" alt="Photo">
+    <div class="page1-row"><span class="page1-label">Full Name</span><span class="page1-colon">:</span><span class="page1-value">Kyaw Swar Winn (ကျော်စွာဝင်း)</span></div>
+    <div class="page1-row"><span class="page1-label">Position Applied For</span><span class="page1-colon">:</span><span class="page1-blank"></span></div>
+    <div class="page1-row"><span class="page1-label">NRC Number</span><span class="page1-colon">:</span><span class="page1-value">9/PaBaNa(N)267763</span></div>
+    <div class="page1-row"><span class="page1-label">Date of Birth</span><span class="page1-colon">:</span><span class="page1-value">5th October, 2006</span></div>
+    <div class="page1-row"><span class="page1-label">Father's Name</span><span class="page1-colon">:</span><span class="page1-value">U Than Win Hlaing (ဦးသန်းဝင်းလှိုင်)</span></div>
+    <div class="page1-row"><span class="page1-label">Nationality</span><span class="page1-colon">:</span><span class="page1-value">Myanmar</span></div>
+    <div class="page1-row"><span class="page1-label">Religion</span><span class="page1-colon">:</span><span class="page1-value">Buddhism</span></div>
+    <div class="page1-row"><span class="page1-label">Gender</span><span class="page1-colon">:</span><span class="page1-value">Male</span></div>
+    <div class="page1-row"><span class="page1-label">Marital Status</span><span class="page1-colon">:</span><span class="page1-value">Single</span></div>
+    <div class="page1-row"><span class="page1-label">Educational Qualification</span><span class="page1-colon">:</span><span class="page1-blank"></span></div>
+    <div class="page1-row"><span class="page1-label">Other Qualifications</span><span class="page1-colon">:</span><span class="page1-blank"></span></div>
+    <div class="page1-row"><span class="page1-label">Work Experience</span><span class="page1-colon">:</span><span class="page1-blank"></span></div>
+    <div class="page1-row"><span class="page1-label">Contact Address</span><span class="page1-colon">:</span><span class="page1-blank"></span></div>
+    <div class="page1-row"><span class="page1-label">Contact Phone</span><span class="page1-colon">:</span><span class="page1-blank"></span></div>
+    <div class="page1-sig">Signature / ထိုးမြဲလက်မှတ်<span class="page1-fancy-k">𝒦</span></div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="cv-wrap t1" id="cv-wrap" style="display:none;">
+    <div id="tmpl-root" contenteditable="true" spellcheck="false"></div>
+</div>
+
+<script>
+// ===== DATA =====
+var CONTACT = {
+    phone: '09-788404048', email: 'zekyyyy2006@gmail.com',
+    address: 'Yangon, Myanmar', github: 'github.com/yourusername',
+    photo: 'https://i.ibb.co/Zz2rhXMr/IMG-20260418-173051-731.jpg',
+    dob: 'October 5, 2006', langs: 'Burmese (Native) | English (Pre-Intermediate, B1)'
+};
+
+var DATA = {
+
+    // ── CV A: DEV ──
+    // Priority: Tech Skills → AI Tools → Work Exp → Soft Skills → Education
+    cvA: {
+        name: 'KYAW GYI — YFM', role: 'Junior Developer & System Maintainer',
+        objective: '', summary: '',
+        section1Title: 'Technical Skills',
+        section1: ['Web Dev: HTML5, CSS3, JavaScript (ES6)', 'Mobile: Android WebView, Java (Android Studio)', 'Systems: Cloudflare Workers, Git, Virtualization (VMOS)', 'Automation: Script Development, Server Monitoring'],
+        section2Title: 'AI Tools Proficiency',
+        section2rows: [['Tools', 'ChatGPT, Claude, Microsoft Copilot, Gemini'], ['Expertise', '']],
+        section3Title: 'Work Experience',
+        jobTitle: '', jobCompany: '', jobPeriod: '',
+        jobBullets: ['', '', ''],
+        section4Title: 'Soft Skills',
+        section4: ['', '', '', ''],
+        eduTitle: '', eduPlace: '', eduYear: '', eduNote: '',
+        type: 'dev'
+    },
+
+    // ── CV B: SALES ──
+    // Priority: Soft Skills → Work Exp → Digital Tools → Education → (no AI section)
+    cvB: {
+        name: 'KYAW GYI — YFM', role: 'Sales & Marketing Executive',
+        objective: '', summary: '',
+        section1Title: 'Key Strengths & People Skills',
+        section1: ['', '', '', ''],
+        section2Title: 'Sales & Marketing Skills',
+        section2list: ['', '', '', ''],
+        section3Title: 'Work Experience',
+        jobTitle: '', jobCompany: '', jobPeriod: '',
+        jobBullets: ['', '', ''],
+        section4Title: 'Digital Tools',
+        section4rows: [['Platforms', ''], ['Skills', '']],
+        eduTitle: '', eduPlace: '', eduYear: '', eduNote: '',
+        type: 'sales'
+    },
+
+    // ── CV C: GENERAL ──
+    // Priority: Skills → Work Exp → Education
+    cvC: {
+        name: 'KYAW GYI — YFM', role: 'Versatile Professional',
+        objective: '', summary: '',
+        section1Title: 'Core Skills',
+        section1: ['', '', '', ''],
+        section2Title: 'Work Experience',
+        jobTitle: '', jobCompany: '', jobPeriod: '',
+        jobBullets: ['', '', ''],
+        section3Title: 'Additional Skills',
+        section3: ['', '', '', ''],
+        eduTitle: '', eduPlace: '', eduYear: '', eduNote: '',
+        type: 'general'
+    }
+};
+
+function li(arr) { return arr.map(function(s){ return '<li>'+(s||'&nbsp;')+'</li>'; }).join(''); }
+function rows(arr) { return arr.map(function(r){ return '<div class="row"><span class="lbl">'+(r[0]||'')+':</span><span class="val">'+(r[1]||'&nbsp;')+'</span></div>'; }).join(''); }
+
+// ── TEMPLATE BUILDERS ──
+// Each CV type builds sections in priority order
+
+function buildDev(d, hdr, foot) {
+    return hdr
+    +'<div class="sec"><div class="sec-title obj-title">Objective</div><p>'+(d.objective||'&nbsp;')+'</p></div>'
+    +'<div class="sec"><div class="sec-title">Professional Summary</div><p>'+(d.summary||'&nbsp;')+'</p></div>'
+    +'<div class="sec"><div class="sec-title">'+d.section1Title+'</div><ul>'+li(d.section1)+'</ul></div>'
+    +'<div class="sec"><div class="sec-title">'+d.section2Title+'</div>'+rows(d.section2rows)+'</div>'
+    +'<div class="sec"><div class="sec-title">'+d.section3Title+'</div>'
+    +'<div class="job-title">'+(d.jobTitle||'&nbsp;')+'</div>'
+    +'<div class="job-meta">'+(d.jobCompany||'&nbsp;')+' | '+(d.jobPeriod||'&nbsp;')+'</div>'
+    +'<ul>'+li(d.jobBullets)+'</ul></div>'
+    +'<div class="sec"><div class="sec-title">'+d.section4Title+'</div><ul>'+li(d.section4)+'</ul></div>'
+    +'<div class="sec"><div class="sec-title">Education</div>'
+    +'<div class="job-title">'+(d.eduTitle||'&nbsp;')+'</div>'
+    +'<div class="job-meta">'+(d.eduPlace||'&nbsp;')+' | '+(d.eduYear||'&nbsp;')+'</div>'
+    +'<ul><li>'+(d.eduNote||'&nbsp;')+'</li></ul></div>'
+    +foot;
+}
+
+function buildSales(d, hdr, foot) {
+    return hdr
+    +'<div class="sec"><div class="sec-title obj-title">Objective</div><p>'+(d.objective||'&nbsp;')+'</p></div>'
+    +'<div class="sec"><div class="sec-title">Professional Summary</div><p>'+(d.summary||'&nbsp;')+'</p></div>'
+    +'<div class="sec"><div class="sec-title">'+d.section1Title+'</div><ul>'+li(d.section1)+'</ul></div>'
+    +'<div class="sec"><div class="sec-title">'+d.section3Title+'</div>'
+    +'<div class="job-title">'+(d.jobTitle||'&nbsp;')+'</div>'
+    +'<div class="job-meta">'+(d.jobCompany||'&nbsp;')+' | '+(d.jobPeriod||'&nbsp;')+'</div>'
+    +'<ul>'+li(d.jobBullets)+'</ul></div>'
+    +'<div class="sec"><div class="sec-title">'+d.section2Title+'</div><ul>'+li(d.section2list)+'</ul></div>'
+    +'<div class="sec"><div class="sec-title">'+d.section4Title+'</div>'+rows(d.section4rows)+'</div>'
+    +'<div class="sec"><div class="sec-title">Education</div>'
+    +'<div class="job-title">'+(d.eduTitle||'&nbsp;')+'</div>'
+    +'<div class="job-meta">'+(d.eduPlace||'&nbsp;')+' | '+(d.eduYear||'&nbsp;')+'</div>'
+    +'<ul><li>'+(d.eduNote||'&nbsp;')+'</li></ul></div>'
+    +foot;
+}
+
+function buildGeneral(d, hdr, foot) {
+    return hdr
+    +'<div class="sec"><div class="sec-title obj-title">Objective</div><p>'+(d.objective||'&nbsp;')+'</p></div>'
+    +'<div class="sec"><div class="sec-title">Professional Summary</div><p>'+(d.summary||'&nbsp;')+'</p></div>'
+    +'<div class="grid2">'
+    +'<div class="sec"><div class="sec-title">'+d.section1Title+'</div><ul>'+li(d.section1)+'</ul></div>'
+    +'<div class="sec"><div class="sec-title">'+d.section3Title+'</div><ul>'+li(d.section3)+'</ul></div>'
+    +'</div>'
+    +'<div class="sec"><div class="sec-title">'+d.section2Title+'</div>'
+    +'<div class="job-title">'+(d.jobTitle||'&nbsp;')+'</div>'
+    +'<div class="job-meta">'+(d.jobCompany||'&nbsp;')+' | '+(d.jobPeriod||'&nbsp;')+'</div>'
+    +'<ul>'+li(d.jobBullets)+'</ul></div>'
+    +'<div class="sec"><div class="sec-title">Education</div>'
+    +'<div class="job-title">'+(d.eduTitle||'&nbsp;')+'</div>'
+    +'<div class="job-meta">'+(d.eduPlace||'&nbsp;')+' | '+(d.eduYear||'&nbsp;')+'</div>'
+    +'<ul><li>'+(d.eduNote||'&nbsp;')+'</li></ul></div>'
+    +foot;
+}
+
+function buildT1(d) {
+    var c = CONTACT;
+    var hdr = '<div class="cv-page"><div class="cv-header"><img src="'+c.photo+'" class="cv-photo" alt="Photo"><h1>'+d.name+'</h1><div class="cv-role">'+d.role+'</div><div class="cv-contact">'+c.phone+' | '+c.email+'<br>'+c.address+'</div></div>';
+    var foot = '<div class="sec"><div class="sec-title">Personal Details</div><div class="row"><span class="lbl">Date of Birth:</span><span class="val">'+c.dob+'</span></div><div class="row"><span class="lbl">Languages:</span><span class="val">'+c.langs+'</span></div></div></div>';
+    if (d.type==='sales') return buildSales(d, hdr, foot);
+    if (d.type==='general') return buildGeneral(d, hdr, foot);
+    return buildDev(d, hdr, foot);
+}
+
+function buildT2(d) {
+    var c = CONTACT;
+    var hdr = '<div class="cv-page"><div class="cv-header"><img src="'+c.photo+'" class="cv-photo" alt="Photo"><div class="header-text"><h1>'+d.name+'</h1><div class="cv-role">'+d.role+'</div><div class="cv-contact">'+c.phone+' · '+c.email+' · '+c.address+'</div></div></div>';
+    var foot = '<div class="sec"><div class="sec-title">Details</div><div class="row"><span class="lbl">Date of Birth</span><span class="val">'+c.dob+'</span></div><div class="row"><span class="lbl">Languages</span><span class="val">'+c.langs+'</span></div></div></div>';
+    if (d.type==='sales') return buildSales(d, hdr, foot);
+    if (d.type==='general') return buildGeneral(d, hdr, foot);
+    return buildDev(d, hdr, foot);
+}
+
+function buildT3(d) {
+    var c = CONTACT;
+    var hdr = '<div class="cv-page"><div class="cv-header"><img src="'+c.photo+'" class="cv-photo" alt="Photo"><div><h1>'+d.name+'</h1><div class="gold-line"></div><div class="cv-role">'+d.role+'</div><div class="cv-contact">'+c.phone+' · '+c.email+'<br>'+c.address+'</div></div></div>';
+    var foot = '<div class="sec"><div class="sec-title">Personal Details</div><div class="row"><span class="lbl">Date of Birth:</span><span class="val">'+c.dob+'</span></div><div class="row"><span class="lbl">Languages:</span><span class="val">'+c.langs+'</span></div></div></div>';
+    if (d.type==='sales') return buildSales(d, hdr, foot);
+    if (d.type==='general') return buildGeneral(d, hdr, foot);
+    return buildDev(d, hdr, foot);
+}
+
+function buildT4(d) {
+    var c = CONTACT;
+    var sidebar = '<div class="sidebar"><img src="'+c.photo+'" class="cv-photo" alt="Photo"><h1>'+d.name+'</h1><div class="cv-role">'+d.role+'</div>'
+        +'<div><div class="sec-title">Contact</div><div class="contact-item">'+c.phone+'</div><div class="contact-item">'+c.email+'</div><div class="contact-item">'+c.address+'</div></div>'
+        +'<div><div class="sec-title">Languages</div><p>'+c.langs+'</p></div>'
+        +'<div><div class="sec-title">Personal</div><p>DOB: '+c.dob+'</p></div></div>';
+    var hdr = '<div class="cv-page">'+sidebar+'<div class="main">';
+    var foot = '<div class="sec"><div class="sec-title">Education</div><div class="job-title">'+(d.eduTitle||'&nbsp;')+'</div><div class="job-meta">'+(d.eduPlace||'&nbsp;')+' | '+(d.eduYear||'&nbsp;')+'</div><ul><li>'+(d.eduNote||'&nbsp;')+'</li></ul></div></div></div>';
+
+    var mainContent;
+    if (d.type==='sales') {
+        mainContent = '<div class="sec"><div class="sec-title obj-title">Objective</div><p>'+(d.objective||'&nbsp;')+'</p></div>'
+            +'<div class="sec"><div class="sec-title">'+d.section1Title+'</div><ul>'+li(d.section1)+'</ul></div>'
+            +'<div class="sec"><div class="sec-title">'+d.section3Title+'</div><div class="job-title">'+(d.jobTitle||'&nbsp;')+'</div><div class="job-meta">'+(d.jobCompany||'&nbsp;')+' | '+(d.jobPeriod||'&nbsp;')+'</div><ul>'+li(d.jobBullets)+'</ul></div>'
+            +'<div class="sec"><div class="sec-title">'+d.section2Title+'</div><ul>'+li(d.section2list)+'</ul></div>';
+    } else if (d.type==='general') {
+        mainContent = '<div class="sec"><div class="sec-title obj-title">Objective</div><p>'+(d.objective||'&nbsp;')+'</p></div>'
+            +'<div class="sec"><div class="sec-title">'+d.section1Title+'</div><ul>'+li(d.section1)+'</ul></div>'
+            +'<div class="sec"><div class="sec-title">'+d.section2Title+'</div><div class="job-title">'+(d.jobTitle||'&nbsp;')+'</div><div class="job-meta">'+(d.jobCompany||'&nbsp;')+' | '+(d.jobPeriod||'&nbsp;')+'</div><ul>'+li(d.jobBullets)+'</ul></div>';
+    } else {
+        mainContent = '<div class="sec"><div class="sec-title obj-title">Objective</div><p>'+(d.objective||'&nbsp;')+'</p></div>'
+            +'<div class="sec"><div class="sec-title">'+d.section1Title+'</div><ul>'+li(d.section1)+'</ul></div>'
+            +'<div class="sec"><div class="sec-title">'+d.section2Title+'</div>'+rows(d.section2rows)+'</div>'
+            +'<div class="sec"><div class="sec-title">'+d.section3Title+'</div><div class="job-title">'+(d.jobTitle||'&nbsp;')+'</div><div class="job-meta">'+(d.jobCompany||'&nbsp;')+' | '+(d.jobPeriod||'&nbsp;')+'</div><ul>'+li(d.jobBullets)+'</ul></div>';
+    }
+    return hdr + mainContent + foot;
+}
+
+function buildT5(d) {
+    var c = CONTACT;
+    var hdr = '<div class="cv-page"><div class="cv-header"><img src="'+c.photo+'" class="cv-photo" alt="Photo"><div class="header-text"><h1>'+d.name+'</h1><div class="cv-role">'+d.role+'</div><div class="cv-contact">'+c.phone+' · '+c.email+' · '+c.address+'</div></div></div><div class="body">';
+    var foot = '<div class="sec"><div class="sec-title">Personal Details</div><p>DOB: '+c.dob+' | '+c.langs+'</p></div></div></div>';
+    if (d.type==='sales') return buildSales(d, hdr, foot);
+    if (d.type==='general') return buildGeneral(d, hdr, foot);
+    return buildDev(d, hdr, foot);
+}
+
+// ===== STATE =====
+var currentTemplate = 1;
+var currentCV = 'cvA';
+var builders = {1:buildT1, 2:buildT2, 3:buildT3, 4:buildT4, 5:buildT5};
+var tClasses = {1:'t1', 2:'t2', 3:'t3', 4:'t4', 5:'t5'};
+
+function render() {
+    var wrap = document.getElementById('cv-wrap');
+    var d = DATA[currentCV];
+    wrap.className = 'cv-wrap ' + tClasses[currentTemplate];
+    document.getElementById('tmpl-root').innerHTML = builders[currentTemplate](d);
+}
+
+function setTemplate(n) {
+    currentTemplate = n;
+    for (var i = 1; i <= 5; i++) document.getElementById('t'+i+'-btn').classList.toggle('active', i === n);
+    render();
+}
+
+function setPage(p) {
+    document.getElementById('pg1-btn').classList.toggle('active', p === 1);
+    document.getElementById('pg2-btn').classList.toggle('active', p === 2);
+    document.getElementById('page1-wrap').style.display = p === 1 ? 'block' : 'none';
+    document.getElementById('cv-wrap').style.display = p === 2 ? 'block' : 'none';
+}
+
+function openDashboard() {
+    document.getElementById('step1').style.display = 'block';
+    document.getElementById('step2').style.display = 'none';
+    document.getElementById('modal').classList.add('open');
+}
+function closeDashboard() { document.getElementById('modal').classList.remove('open'); }
+function closeOnBg(e) { if (e.target === document.getElementById('modal')) closeDashboard(); }
+
+var pendingCV = null;
+var cvLabels = { cvA: '💻 Developer / Tech', cvB: '📈 Sales & Marketing', cvC: '🌐 General Purpose' };
+
+function selectCV(v) {
+    pendingCV = v;
+    document.getElementById('card-dev').classList.toggle('selected', v === 'cvA');
+    document.getElementById('card-sales').classList.toggle('selected', v === 'cvB');
+    document.getElementById('card-gen').classList.toggle('selected', v === 'cvC');
+    document.getElementById('cv-label').textContent = cvLabels[v];
+    document.getElementById('step1').style.display = 'none';
+    document.getElementById('step2').style.display = 'block';
+}
+
+function pickTemplate(n) {
+    currentCV = pendingCV;
+    currentTemplate = n;
+    render();
+    closeDashboard();
+    setPage(2);
+}
+
+function backToStep1() {
+    document.getElementById('step1').style.display = 'block';
+    document.getElementById('step2').style.display = 'none';
+}
+
+// Paste plain text only
+document.addEventListener('paste', function(e) {
+    if (!e.target.closest('[contenteditable="true"]')) return;
+    e.preventDefault();
+    var text = (e.clipboardData || window.clipboardData).getData('text/plain');
+    document.execCommand('insertText', false, text);
+});
+
+// Print both pages
+window.addEventListener('beforeprint', function() {
+    document.getElementById('page1-wrap').style.display = 'block';
+    document.getElementById('cv-wrap').style.display = 'block';
+});
+window.addEventListener('afterprint', function() {
+    var p1Active = document.getElementById('pg1-btn').classList.contains('active');
+    document.getElementById('page1-wrap').style.display = p1Active ? 'block' : 'none';
+    document.getElementById('cv-wrap').style.display = p1Active ? 'none' : 'block';
+});
+
+// Init
+document.getElementById('card-dev').classList.add('selected');
+render();
+</script>
+</body>
+</html>
