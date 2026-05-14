@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>CV - Kyaw Swar Winn</title>
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&family=Montserrat:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: #e8eaf0; font-family: 'Inter', sans-serif; min-height: 100vh; }
 
-/* TOOLBAR */
 .toolbar {
     position: fixed; top: 0; left: 0; right: 0; z-index: 999;
     background: #1a1a2e; padding: 10px 16px;
@@ -28,7 +27,6 @@ body { background: #e8eaf0; font-family: 'Inter', sans-serif; min-height: 100vh;
 .tb-btn.dashboard-btn:hover { background: #9b59b6; }
 .print-btn { padding: 7px 16px; background: #27ae60; color: white; border: none; border-radius: 20px; cursor: pointer; font-size: 12px; font-weight: 700; margin-left: auto; }
 
-/* DASHBOARD MODAL */
 .modal-overlay {
     display: none; position: fixed; inset: 0; z-index: 2000;
     background: rgba(0,0,0,0.7); align-items: center; justify-content: center;
@@ -56,12 +54,30 @@ body { background: #e8eaf0; font-family: 'Inter', sans-serif; min-height: 100vh;
 .tag-orange { background: #4a2a1a; color: #f5c07a; }
 .modal-close { margin-top: 20px; width: 100%; padding: 12px; background: #333; color: #aaa; border: none; border-radius: 10px; cursor: pointer; font-size: 13px; }
 .modal-close:hover { background: #444; color: white; }
-.cv-indicator { color: #3498db; font-size: 11px; font-weight: 700; }
 
-/* WRAP */
 .cv-wrap { padding: 80px 16px 30px; }
 
-/* PAGE 1 */
+.editable-field {
+    outline: none;
+    min-height: 18px;
+}
+.editable-field:focus {
+    outline: 1px dashed rgba(201,168,76,0.7);
+    outline-offset: 2px;
+}
+.editable-inline {
+    display: inline-block;
+    min-width: 40px;
+}
+.single-line {
+    white-space: nowrap;
+}
+.multi-line {
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
 .page1 {
     display: none; width: 210mm; min-height: 297mm; margin: auto;
     background: white; padding: 50px 50px 40px;
@@ -70,15 +86,31 @@ body { background: #e8eaf0; font-family: 'Inter', sans-serif; min-height: 100vh;
 }
 .page1-photo { width: 110px; height: 130px; object-fit: cover; border: 1px solid #555; position: absolute; top: 20px; right: 50px; }
 .page1-title { text-align: center; font-size: 17px; font-weight: bold; text-decoration: underline; margin-bottom: 32px; color: #c9a84c; padding-right: 130px; }
-.page1-row { display: flex; align-items: flex-start; margin-bottom: 20px; font-size: 13.5px; color: #000; }
+.page1-row { display: flex; align-items: flex-start; margin-bottom: 20px; font-size: 13.5px; color: #000; gap: 0; }
 .page1-label { min-width: 220px; font-weight: 500; }
 .page1-colon { margin: 0 10px; }
-.page1-value { flex: 1; border-bottom: 1px dashed #999; min-height: 20px; padding-bottom: 2px; }
-.page1-blank { flex: 1; border-bottom: 1px dashed #999; min-height: 20px; }
+.page1-value {
+    flex: 1;
+    border-bottom: 1px dashed #999;
+    min-height: 20px;
+    padding-bottom: 2px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+.page1-blank {
+    flex: 1;
+    border-bottom: 1px dashed #999;
+    min-height: 20px;
+    padding-bottom: 2px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
 .page1-sig { text-align: right; margin-top: 36px; font-size: 13px; color: #555; }
 .page1-fancy-k { font-family: 'Dancing Script','Brush Script MT',cursive; font-size: 38px; color: #2c3e50; font-weight: 700; line-height: 1; display: block; margin-top: 4px; }
 
-/* ── T1 CLASSIC ── */
+/* T1 CLASSIC */
 .t1 .cv-page { background: white; padding: 36px; box-shadow: 0 4px 20px rgba(0,0,0,0.12); min-height: 297mm; max-width: 210mm; margin: auto; }
 .t1 .cv-header { border-bottom: 4px solid #2c3e50; padding-bottom: 18px; margin-bottom: 18px; overflow: hidden; }
 .t1 .cv-photo { width: 110px; height: 130px; float: right; border: 2px solid #2c3e50; border-radius: 4px; object-fit: cover; margin-left: 20px; }
@@ -91,12 +123,14 @@ body { background: #e8eaf0; font-family: 'Inter', sans-serif; min-height: 100vh;
 .t1 p, .t1 li { font-size: 13px; color: #333; line-height: 1.65; }
 .t1 ul { padding-left: 18px; } .t1 li { margin-bottom: 4px; }
 .t1 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.t1 .row { display: flex; font-size: 13px; margin-bottom: 7px; }
+.t1 .row { display: flex; font-size: 13px; margin-bottom: 7px; align-items: flex-start; }
 .t1 .lbl { font-weight: 700; min-width: 130px; color: #000; } .t1 .val { flex: 1; color: #333; }
 .t1 .job-title { font-weight: 700; font-size: 14px; color: #222; }
 .t1 .job-meta { font-style: italic; color: #666; font-size: 12px; margin-bottom: 7px; }
+.t1 .inline-pair { display: flex; gap: 8px; flex-wrap: wrap; align-items: baseline; }
+.t1 .inline-label { font-weight: 700; color: #000; }
 
-/* ── T2 MINIMALIST ── */
+/* T2 MINIMALIST */
 .t2 .cv-page { background: #fafafa; padding: 48px 52px; box-shadow: 0 2px 30px rgba(0,0,0,0.08); min-height: 297mm; max-width: 210mm; margin: auto; }
 .t2 .cv-header { display: flex; align-items: flex-start; gap: 28px; margin-bottom: 30px; padding-bottom: 24px; border-bottom: 1px solid #e0e0e0; }
 .t2 .cv-photo { width: 90px; height: 108px; border-radius: 50%; object-fit: cover; border: 3px solid #111; flex-shrink: 0; }
@@ -112,11 +146,11 @@ body { background: #e8eaf0; font-family: 'Inter', sans-serif; min-height: 100vh;
 .t2 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .t2 .job-title { font-weight: 600; font-size: 14px; color: #111; }
 .t2 .job-meta { font-size: 11px; color: #999; margin-bottom: 8px; }
-.t2 .row { display: flex; font-size: 13px; margin-bottom: 6px; }
+.t2 .row { display: flex; font-size: 13px; margin-bottom: 6px; align-items: flex-start; }
 .t2 .lbl { font-weight: 600; min-width: 120px; color: #111; font-size: 12px; } .t2 .val { flex: 1; color: #555; font-size: 12px; }
 .t2 .tag { display: inline-block; background: #f0f0f0; color: #333; padding: 3px 10px; border-radius: 12px; font-size: 11px; margin: 2px; }
 
-/* ── T3 DARK GOLD ── */
+/* T3 DARK GOLD */
 .t3 .cv-page { background: #0d1117; padding: 40px; box-shadow: 0 4px 30px rgba(0,0,0,0.5); min-height: 297mm; max-width: 210mm; margin: auto; }
 .t3 .cv-header { display: flex; gap: 24px; align-items: center; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid #c9a84c44; }
 .t3 .cv-photo { width: 100px; height: 120px; object-fit: cover; border: 2px solid #c9a84c; border-radius: 6px; flex-shrink: 0; }
@@ -131,10 +165,10 @@ body { background: #e8eaf0; font-family: 'Inter', sans-serif; min-height: 100vh;
 .t3 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .t3 .job-title { font-weight: 700; font-size: 14px; color: #fff; }
 .t3 .job-meta { font-size: 12px; color: #c9a84c; margin-bottom: 8px; }
-.t3 .row { display: flex; font-size: 13px; margin-bottom: 7px; }
+.t3 .row { display: flex; font-size: 13px; margin-bottom: 7px; align-items: flex-start; }
 .t3 .lbl { font-weight: 700; min-width: 130px; color: #c9a84c; font-size: 12px; } .t3 .val { flex: 1; color: #c8d0da; font-size: 12px; }
 
-/* ── T4 SIDEBAR ── */
+/* T4 SIDEBAR */
 .t4 .cv-page { display: flex; min-height: 297mm; max-width: 210mm; margin: auto; box-shadow: 0 4px 30px rgba(0,0,0,0.15); background: white; overflow: hidden; }
 .t4 .sidebar { width: 220px; flex-shrink: 0; background: #1e3a5f; padding: 32px 20px; color: white; display: flex; flex-direction: column; gap: 20px; }
 .t4 .cv-photo { width: 100px; height: 120px; object-fit: cover; border-radius: 50%; border: 3px solid #4a90d9; display: block; margin: 0 auto 12px; }
@@ -158,7 +192,7 @@ body { background: #e8eaf0; font-family: 'Inter', sans-serif; min-height: 100vh;
 .t4 .skill-bar { height: 4px; background: #2d5a8a; border-radius: 2px; }
 .t4 .skill-fill { height: 4px; background: #4a90d9; border-radius: 2px; }
 
-/* ── T5 CREATIVE ── */
+/* T5 CREATIVE */
 .t5 .cv-page { background: #fff; min-height: 297mm; max-width: 210mm; margin: auto; box-shadow: 0 4px 30px rgba(0,0,0,0.12); overflow: hidden; }
 .t5 .cv-header { background: linear-gradient(135deg, #0f4c81, #1a7a6e); padding: 30px 36px; display: flex; align-items: center; gap: 24px; }
 .t5 .cv-photo { width: 100px; height: 120px; object-fit: cover; border-radius: 8px; border: 3px solid rgba(255,255,255,0.4); flex-shrink: 0; }
@@ -176,8 +210,9 @@ body { background: #e8eaf0; font-family: 'Inter', sans-serif; min-height: 100vh;
 .t5 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .t5 .job-title { font-weight: 700; font-size: 13px; color: #0f4c81; }
 .t5 .job-meta { font-size: 11px; color: #1a7a6e; margin-bottom: 7px; font-weight: 600; }
+.t5 .row { display: flex; font-size: 13px; margin-bottom: 7px; align-items: flex-start; }
+.t5 .lbl { font-weight: 700; min-width: 130px; color: #0f4c81; font-size: 12px; } .t5 .val { flex: 1; color: #333; font-size: 12px; }
 
-/* PRINT */
 @media print {
     .modal-overlay, .toolbar { display: none !important; }
     .cv-wrap { padding: 0 !important; }
@@ -190,12 +225,15 @@ body { background: #e8eaf0; font-family: 'Inter', sans-serif; min-height: 100vh;
     .t1 .grid2, .t2 .grid2, .t3 .grid2, .t5 .grid2 { grid-template-columns: 1fr; }
     .t4 .cv-page { flex-direction: column; }
     .t4 .sidebar { width: 100%; }
+    .page1 { width: 100%; padding: 42px 18px 28px; }
+    .page1-label { min-width: 120px; }
+    .page1-photo { right: 18px; top: 16px; width: 88px; height: 104px; }
+    .page1-title { padding-right: 102px; }
 }
 </style>
 </head>
 <body>
 
-<!-- TOOLBAR -->
 <div class="toolbar">
     <span class="toolbar-label">Page</span>
     <button class="tb-btn active" id="pg1-btn" onclick="setPage(1)">📋 Page 1</button>
@@ -204,10 +242,8 @@ body { background: #e8eaf0; font-family: 'Inter', sans-serif; min-height: 100vh;
     <button class="print-btn" onclick="window.print()">📄 PDF</button>
 </div>
 
-<!-- DASHBOARD MODAL -->
 <div class="modal-overlay" id="modal" onclick="closeOnBg(event)">
     <div class="modal">
-        <!-- STEP 1: CV Selection -->
         <div id="step1">
             <h2>⚡ Dashboard</h2>
             <p>Select the CV version for the position you are applying for.</p>
@@ -243,7 +279,6 @@ body { background: #e8eaf0; font-family: 'Inter', sans-serif; min-height: 100vh;
             <button class="modal-close" onclick="closeDashboard()">✕ Close</button>
         </div>
 
-        <!-- STEP 2: Template Selection -->
         <div id="step2" style="display:none;">
             <h2>🎨 Choose Template</h2>
             <p id="step2-sub">Selected: <span id="cv-label" style="color:#3498db;font-weight:700;"></span></p>
@@ -259,310 +294,416 @@ body { background: #e8eaf0; font-family: 'Inter', sans-serif; min-height: 100vh;
     </div>
 </div>
 
-<!-- PAGE 1 -->
-<div class="page1" id="page1-wrap" style="display:block; margin-top:70px;" contenteditable="true" spellcheck="false">
+<div class="page1" id="page1-wrap" style="display:block; margin-top:70px;" spellcheck="false">
     <div class="page1-title">Personal Details / ကိုယ်ရေးရာဇဝင်အကျဉ်း</div>
     <img src="https://i.ibb.co/Zz2rhXMr/IMG-20260418-173051-731.jpg" class="page1-photo" alt="Photo">
-    <div class="page1-row"><span class="page1-label">Full Name</span><span class="page1-colon">:</span><span class="page1-value">Kyaw Swar Winn (ကျော်စွာဝင်း)</span></div>
-    <div class="page1-row"><span class="page1-label">Position Applied For</span><span class="page1-colon">:</span><span class="page1-blank"></span></div>
-    <div class="page1-row"><span class="page1-label">NRC Number</span><span class="page1-colon">:</span><span class="page1-value">9/PaBaNa(N)267763</span></div>
-    <div class="page1-row"><span class="page1-label">Date of Birth</span><span class="page1-colon">:</span><span class="page1-value">5th October, 2006</span></div>
-    <div class="page1-row"><span class="page1-label">Father's Name</span><span class="page1-colon">:</span><span class="page1-value">U Than Win Hlaing (ဦးသန်းဝင်းလှိုင်)</span></div>
-    <div class="page1-row"><span class="page1-label">Nationality</span><span class="page1-colon">:</span><span class="page1-value">Myanmar</span></div>
-    <div class="page1-row"><span class="page1-label">Religion</span><span class="page1-colon">:</span><span class="page1-value">Buddhism</span></div>
-    <div class="page1-row"><span class="page1-label">Gender</span><span class="page1-colon">:</span><span class="page1-value">Male</span></div>
-    <div class="page1-row"><span class="page1-label">Marital Status</span><span class="page1-colon">:</span><span class="page1-value">Single</span></div>
-    <div class="page1-row"><span class="page1-label">Educational Qualification</span><span class="page1-colon">:</span><span class="page1-blank"></span></div>
-    <div class="page1-row"><span class="page1-label">Other Qualifications</span><span class="page1-colon">:</span><span class="page1-blank"></span></div>
-    <div class="page1-row"><span class="page1-label">Work Experience</span><span class="page1-colon">:</span><span class="page1-blank"></span></div>
-    <div class="page1-row"><span class="page1-label">Contact Address</span><span class="page1-colon">:</span><span class="page1-blank"></span></div>
-    <div class="page1-row"><span class="page1-label">Contact Phone</span><span class="page1-colon">:</span><span class="page1-blank"></span></div>
+
+    <div class="page1-row">
+        <span class="page1-label">Full Name</span><span class="page1-colon">:</span>
+        <div class="page1-value editable-field single-line" contenteditable="true">Kyaw Swar Winn (ကျော်စွာဝင်း)</div>
+    </div>
+
+    <div class="page1-row">
+        <span class="page1-label">Position Applied For</span><span class="page1-colon">:</span>
+        <div class="page1-blank editable-field single-line" contenteditable="true"></div>
+    </div>
+
+    <div class="page1-row">
+        <span class="page1-label">NRC Number</span><span class="page1-colon">:</span>
+        <div class="page1-value editable-field single-line" contenteditable="true">9/PaBaNa(N)267763</div>
+    </div>
+
+    <div class="page1-row">
+        <span class="page1-label">Date of Birth</span><span class="page1-colon">:</span>
+        <div class="page1-value editable-field single-line" contenteditable="true">5th October, 2006</div>
+    </div>
+
+    <div class="page1-row">
+        <span class="page1-label">Father's Name</span><span class="page1-colon">:</span>
+        <div class="page1-value editable-field single-line" contenteditable="true">U Than Win Hlaing (ဦးသန်းဝင်းလှိုင်)</div>
+    </div>
+
+    <div class="page1-row">
+        <span class="page1-label">Nationality</span><span class="page1-colon">:</span>
+        <div class="page1-value editable-field single-line" contenteditable="true">Myanmar</div>
+    </div>
+
+    <div class="page1-row">
+        <span class="page1-label">Religion</span><span class="page1-colon">:</span>
+        <div class="page1-value editable-field single-line" contenteditable="true">Buddhism</div>
+    </div>
+
+    <div class="page1-row">
+        <span class="page1-label">Gender</span><span class="page1-colon">:</span>
+        <div class="page1-value editable-field single-line" contenteditable="true">Male</div>
+    </div>
+
+    <div class="page1-row">
+        <span class="page1-label">Marital Status</span><span class="page1-colon">:</span>
+        <div class="page1-value editable-field single-line" contenteditable="true">Single</div>
+    </div>
+
+    <div class="page1-row">
+        <span class="page1-label">Educational Qualification</span><span class="page1-colon">:</span>
+        <div class="page1-blank editable-field single-line" contenteditable="true"></div>
+    </div>
+
+    <div class="page1-row">
+        <span class="page1-label">Other Qualifications</span><span class="page1-colon">:</span>
+        <div class="page1-blank editable-field multi-line" contenteditable="true"></div>
+    </div>
+
+    <div class="page1-row">
+        <span class="page1-label">Work Experience</span><span class="page1-colon">:</span>
+        <div class="page1-blank editable-field multi-line" contenteditable="true"></div>
+    </div>
+
+    <div class="page1-row">
+        <span class="page1-label">Contact Address</span><span class="page1-colon">:</span>
+        <div class="page1-blank editable-field multi-line" contenteditable="true"></div>
+    </div>
+
+    <div class="page1-row">
+        <span class="page1-label">Contact Phone</span><span class="page1-colon">:</span>
+        <div class="page1-blank editable-field single-line" contenteditable="true"></div>
+    </div>
+
     <div class="page1-sig">Signature / ထိုးမြဲလက်မှတ်<span class="page1-fancy-k">𝒦</span></div>
 </div>
 
-<!-- PAGE 2 -->
 <div class="cv-wrap t1" id="cv-wrap" style="display:none;">
-    <div id="tmpl-root" contenteditable="true" spellcheck="false"></div>
+    <div id="tmpl-root" spellcheck="false"></div>
 </div>
 
 <script>
-// ===== DATA =====
 var CONTACT = {
-    phone: '09-788404048', email: 'zekyyyy2006@gmail.com',
-    address: 'Yangon, Myanmar', github: 'github.com/yourusername',
+    phone: '09-788404048',
+    email: 'zekyyyy2006@gmail.com',
+    address: 'Yangon, Myanmar',
+    github: 'github.com/yourusername',
     photo: 'https://i.ibb.co/Zz2rhXMr/IMG-20260418-173051-731.jpg',
-    dob: 'October 5, 2006', langs: 'Burmese (Native) | English (Pre-Intermediate, B1)'
+    dob: 'October 5, 2006',
+    langs: 'Burmese (Native) | English (Pre-Intermediate, B1)'
 };
 
 var DATA = {
-
-    // ── CV A: DEV ──
     cvA: {
-        name: 'KYAW GYI — YFM', role: 'Junior Developer & System Maintainer',
-        objective: '', summary: '',
+        name: 'KYAW GYI — YFM',
+        role: 'Junior Developer & System Maintainer',
+        objective: '',
+        summary: '',
         section1Title: 'Technical Skills',
         section1: ['Web Dev: HTML5, CSS3, JavaScript (ES6)', 'Mobile: Android WebView, Java (Android Studio)', 'Systems: Cloudflare Workers, Git, Virtualization (VMOS)', 'Automation: Script Development, Server Monitoring'],
         section2Title: 'AI Tools Proficiency',
         section2rows: [['Tools', 'ChatGPT, Claude, Microsoft Copilot, Gemini'], ['Expertise', '']],
         section3Title: 'Work Experience',
-        jobTitle: '', jobCompany: '', jobPeriod: '',
+        jobTitle: '',
+        jobCompany: '',
+        jobPeriod: '',
         jobBullets: ['', '', ''],
         section4Title: 'Soft Skills',
         section4: ['', '', '', ''],
-        eduTitle: '', eduPlace: '', eduYear: '', eduNote: '',
+        eduTitle: '',
+        eduPlace: '',
+        eduYear: '',
+        eduNote: '',
         type: 'dev'
     },
-
-    // ── CV B: SALES ──
     cvB: {
-        name: 'KYAW GYI — YFM', role: 'Sales & Marketing Executive',
-        objective: '', summary: '',
+        name: 'KYAW GYI — YFM',
+        role: 'Sales & Marketing Executive',
+        objective: '',
+        summary: '',
         section1Title: 'Key Strengths & People Skills',
         section1: ['', '', '', ''],
         section2Title: 'Sales & Marketing Skills',
         section2list: ['', '', '', ''],
         section3Title: 'Work Experience',
-        jobTitle: '', jobCompany: '', jobPeriod: '',
+        jobTitle: '',
+        jobCompany: '',
+        jobPeriod: '',
         jobBullets: ['', '', ''],
         section4Title: 'Digital Tools',
         section4rows: [['Platforms', ''], ['Skills', '']],
-        eduTitle: '', eduPlace: '', eduYear: '', eduNote: '',
+        eduTitle: '',
+        eduPlace: '',
+        eduYear: '',
+        eduNote: '',
         type: 'sales'
     },
-
-    // ── CV C: GENERAL ──
     cvC: {
-        name: 'KYAW GYI — YFM', role: 'Versatile Professional',
-        objective: '', summary: '',
+        name: 'KYAW GYI — YFM',
+        role: 'Versatile Professional',
+        objective: '',
+        summary: '',
         section1Title: 'Core Skills',
         section1: ['', '', '', ''],
         section2Title: 'Work Experience',
-        jobTitle: '', jobCompany: '', jobPeriod: '',
+        jobTitle: '',
+        jobCompany: '',
+        jobPeriod: '',
         jobBullets: ['', '', ''],
         section3Title: 'Additional Skills',
         section3: ['', '', '', ''],
-        eduTitle: '', eduPlace: '', eduYear: '', eduNote: '',
+        eduTitle: '',
+        eduPlace: '',
+        eduYear: '',
+        eduNote: '',
         type: 'general'
     }
 };
 
-function li(arr) {
-    return arr.map(function(s){
-        return '<li>' + (s || '&nbsp;') + '</li>';
+var currentTemplate = 1;
+var currentCV = 'cvA';
+var builders = { 1: buildT1, 2: buildT2, 3: buildT3, 4: buildT4, 5: buildT5 };
+var tClasses = { 1: 't1', 2: 't2', 3: 't3', 4: 't4', 5: 't5' };
+var pendingCV = 'cvA';
+var cvLabels = { cvA: '💻 Developer / Tech', cvB: '📈 Sales & Marketing', cvC: '🌐 General Purpose' };
+
+function escapeHtml(value) {
+    return String(value == null ? '' : value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function formatEditable(text, multiline) {
+    var v = String(text == null ? '' : text);
+    v = escapeHtml(v);
+    if (multiline) {
+        return v.replace(/\r\n|\r|\n/g, '<br>');
+    }
+    return v.replace(/\r\n|\r|\n/g, ' ');
+}
+
+function editableBlock(text, multiline, extraClass) {
+    return '<div class="editable-field ' + (multiline ? 'multi-line' : 'single-line') + (extraClass ? ' ' + extraClass : '') + '" contenteditable="true">' + formatEditable(text, multiline) + '</div>';
+}
+
+function editableInline(text, extraClass) {
+    return '<span class="editable-inline editable-field single-line ' + (extraClass || '') + '" contenteditable="true">' + formatEditable(text, false) + '</span>';
+}
+
+function editableLi(text, multiline) {
+    return '<li class="editable-field ' + (multiline ? 'multi-line' : 'single-line') + '" contenteditable="true">' + formatEditable(text, multiline) + '</li>';
+}
+
+function editableList(arr, multiline) {
+    return (arr || []).map(function (item) {
+        return editableLi(item, !!multiline);
     }).join('');
 }
 
-function rows(arr) {
-    return arr.map(function(r){
-        return '<div class="row"><span class="lbl">' + (r[0] || '') + ':</span><span class="val">' + (r[1] || '&nbsp;') + '</span></div>';
+function editableRows(arr) {
+    return (arr || []).map(function (r) {
+        return '<div class="row"><span class="lbl">' + escapeHtml((r && r[0]) ? r[0] : '') + ':</span><div class="val editable-field multi-line" contenteditable="true">' + formatEditable((r && r[1]) ? r[1] : '', true) + '</div></div>';
     }).join('');
 }
 
-// Helpers for editable content
-function normalizeEditableHTML(el) {
+function cleanEditable(el) {
     if (!el) return;
-    // Keep line breaks as <br>, avoid nested paragraphs/divs on paste/enter.
+    var multiline = el.classList.contains('multi-line');
+
     var html = el.innerHTML;
 
-    // Convert common wrappers to line breaks inside editable fields.
-    html = html
-        .replace(/<\/div>\s*<div>/gi, '<br>')
-        .replace(/<\/p>\s*<p>/gi, '<br>')
-        .replace(/<div><br><\/div>/gi, '<br>')
-        .replace(/<p><br><\/p>/gi, '<br>')
-        .replace(/<div>/gi, '')
-        .replace(/<\/div>/gi, '')
-        .replace(/<p>/gi, '')
-        .replace(/<\/p>/gi, '');
+    if (multiline) {
+        html = html
+            .replace(/<div><br><\/div>/gi, '<br>')
+            .replace(/<p><br><\/p>/gi, '<br>')
+            .replace(/<\/div>\s*<div>/gi, '<br>')
+            .replace(/<\/p>\s*<p>/gi, '<br>')
+            .replace(/<div>/gi, '')
+            .replace(/<\/div>/gi, '')
+            .replace(/<p>/gi, '')
+            .replace(/<\/p>/gi, '')
+            .replace(/(<br>\s*){3,}/gi, '<br><br>');
+    } else {
+        html = html
+            .replace(/<div><br><\/div>/gi, ' ')
+            .replace(/<p><br><\/p>/gi, ' ')
+            .replace(/<\/div>\s*<div>/gi, ' ')
+            .replace(/<\/p>\s*<p>/gi, ' ')
+            .replace(/<div>/gi, ' ')
+            .replace(/<\/div>/gi, ' ')
+            .replace(/<p>/gi, ' ')
+            .replace(/<\/p>/gi, ' ')
+            .replace(/<br\s*\/?>/gi, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+    }
 
-    // Clean excessive breaks
-    html = html.replace(/(<br>\s*){3,}/gi, '<br><br>');
-    el.innerHTML = html;
+    if (html === '') {
+        el.innerHTML = '';
+    } else {
+        el.innerHTML = html;
+    }
 }
 
-function setupEditableBehavior(root) {
-    if (!root) return;
+document.addEventListener('keydown', function (e) {
+    var el = e.target.closest('[contenteditable="true"]');
+    if (!el) return;
 
-    root.addEventListener('keydown', function(e) {
-        if (!e.target.closest('[contenteditable="true"]')) return;
-
-        // Enter = new line, not new paragraph
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            document.execCommand('insertHTML', false, '<br>');
-            return;
-        }
-
-        // Shift+Enter can also insert a line break, same behavior
-        if (e.key === 'Enter' && e.shiftKey) {
-            e.preventDefault();
-            document.execCommand('insertHTML', false, '<br>');
-        }
-    });
-
-    root.addEventListener('paste', function(e) {
-        if (!e.target.closest('[contenteditable="true"]')) return;
+    if (e.key === 'Enter') {
         e.preventDefault();
-        var text = (e.clipboardData || window.clipboardData).getData('text/plain') || '';
-        // Preserve pasted new lines as line breaks
-        var html = text
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/\r\n|\r|\n/g, '<br>');
+        if (!el.classList.contains('multi-line')) return;
+        document.execCommand('insertHTML', false, '<br>');
+    }
+});
+
+document.addEventListener('paste', function (e) {
+    var el = e.target.closest('[contenteditable="true"]');
+    if (!el) return;
+
+    e.preventDefault();
+    var text = (e.clipboardData || window.clipboardData).getData('text/plain') || '';
+    var multiline = el.classList.contains('multi-line');
+
+    if (multiline) {
+        var html = escapeHtml(text).replace(/\r\n|\r|\n/g, '<br>');
         document.execCommand('insertHTML', false, html);
-    });
+    } else {
+        var clean = text.replace(/\r\n|\r|\n/g, ' ').replace(/\s+/g, ' ').trim();
+        document.execCommand('insertText', false, clean);
+    }
 
-    root.addEventListener('input', function(e) {
-        var target = e.target.closest('[contenteditable="true"]');
-        if (!target) return;
-        normalizeEditableHTML(target);
-    });
-}
+    setTimeout(function () {
+        cleanEditable(el);
+    }, 0);
+});
 
-// ── TEMPLATE BUILDERS ──
+document.addEventListener('input', function (e) {
+    var el = e.target.closest('[contenteditable="true"]');
+    if (!el) return;
+    cleanEditable(el);
+});
+
+/* TEMPLATE BUILDERS */
 function buildDev(d, hdr, foot) {
     return hdr
-    +'<div class="sec"><div class="sec-title obj-title">Objective</div><p>'+(d.objective||'&nbsp;')+'</p></div>'
-    +'<div class="sec"><div class="sec-title">Professional Summary</div><p>'+(d.summary||'&nbsp;')+'</p></div>'
-    +'<div class="sec"><div class="sec-title">'+d.section1Title+'</div><ul>'+li(d.section1)+'</ul></div>'
-    +'<div class="sec"><div class="sec-title">'+d.section2Title+'</div>'+rows(d.section2rows)+'</div>'
-    +'<div class="sec"><div class="sec-title">'+d.section3Title+'</div>'
-    +'<div class="job-title">'+(d.jobTitle||'&nbsp;')+'</div>'
-    +'<div class="job-meta">'+(d.jobCompany||'&nbsp;')+' | '+(d.jobPeriod||'&nbsp;')+'</div>'
-    +'<ul>'+li(d.jobBullets)+'</ul></div>'
-    +'<div class="sec"><div class="sec-title">'+d.section4Title+'</div><ul>'+li(d.section4)+'</ul></div>'
-    +'<div class="sec"><div class="sec-title">Education</div>'
-    +'<div class="job-title">'+(d.eduTitle||'&nbsp;')+'</div>'
-    +'<div class="job-meta">'+(d.eduPlace||'&nbsp;')+' | '+(d.eduYear||'&nbsp;')+'</div>'
-    +'<ul><li>'+(d.eduNote||'&nbsp;')+'</li></ul></div>'
-    +foot;
+        + '<div class="sec"><div class="sec-title obj-title">Objective</div>' + editableBlock(d.objective, true) + '</div>'
+        + '<div class="sec"><div class="sec-title">Professional Summary</div>' + editableBlock(d.summary, true) + '</div>'
+        + '<div class="sec"><div class="sec-title">' + escapeHtml(d.section1Title) + '</div><ul>' + editableList(d.section1, true) + '</ul></div>'
+        + '<div class="sec"><div class="sec-title">' + escapeHtml(d.section2Title) + '</div>' + editableRows(d.section2rows) + '</div>'
+        + '<div class="sec"><div class="sec-title">' + escapeHtml(d.section3Title) + '</div>'
+        + '<div class="job-title editable-field single-line" contenteditable="true">' + formatEditable(d.jobTitle, false) + '</div>'
+        + '<div class="job-meta"><span class="editable-inline editable-field single-line" contenteditable="true">' + formatEditable(d.jobCompany, false) + '</span> | <span class="editable-inline editable-field single-line" contenteditable="true">' + formatEditable(d.jobPeriod, false) + '</span></div>'
+        + '<ul>' + editableList(d.jobBullets, true) + '</ul></div>'
+        + '<div class="sec"><div class="sec-title">' + escapeHtml(d.section4Title) + '</div><ul>' + editableList(d.section4, true) + '</ul></div>'
+        + '<div class="sec"><div class="sec-title">Education</div>'
+        + '<div class="job-title editable-field single-line" contenteditable="true">' + formatEditable(d.eduTitle, false) + '</div>'
+        + '<div class="job-meta"><span class="editable-inline editable-field single-line" contenteditable="true">' + formatEditable(d.eduPlace, false) + '</span> | <span class="editable-inline editable-field single-line" contenteditable="true">' + formatEditable(d.eduYear, false) + '</span></div>'
+        + '<div class="editable-field multi-line" contenteditable="true">' + formatEditable(d.eduNote, true) + '</div></div>'
+        + foot;
 }
 
 function buildSales(d, hdr, foot) {
     return hdr
-    +'<div class="sec"><div class="sec-title obj-title">Objective</div><p>'+(d.objective||'&nbsp;')+'</p></div>'
-    +'<div class="sec"><div class="sec-title">Professional Summary</div><p>'+(d.summary||'&nbsp;')+'</p></div>'
-    +'<div class="sec"><div class="sec-title">'+d.section1Title+'</div><ul>'+li(d.section1)+'</ul></div>'
-    +'<div class="sec"><div class="sec-title">'+d.section3Title+'</div>'
-    +'<div class="job-title">'+(d.jobTitle||'&nbsp;')+'</div>'
-    +'<div class="job-meta">'+(d.jobCompany||'&nbsp;')+' | '+(d.jobPeriod||'&nbsp;')+'</div>'
-    +'<ul>'+li(d.jobBullets)+'</ul></div>'
-    +'<div class="sec"><div class="sec-title">'+d.section2Title+'</div><ul>'+li(d.section2list)+'</ul></div>'
-    +'<div class="sec"><div class="sec-title">'+d.section4Title+'</div>'+rows(d.section4rows)+'</div>'
-    +'<div class="sec"><div class="sec-title">Education</div>'
-    +'<div class="job-title">'+(d.eduTitle||'&nbsp;')+'</div>'
-    +'<div class="job-meta">'+(d.eduPlace||'&nbsp;')+' | '+(d.eduYear||'&nbsp;')+'</div>'
-    +'<ul><li>'+(d.eduNote||'&nbsp;')+'</li></ul></div>'
-    +foot;
+        + '<div class="sec"><div class="sec-title obj-title">Objective</div>' + editableBlock(d.objective, true) + '</div>'
+        + '<div class="sec"><div class="sec-title">Professional Summary</div>' + editableBlock(d.summary, true) + '</div>'
+        + '<div class="sec"><div class="sec-title">' + escapeHtml(d.section1Title) + '</div><ul>' + editableList(d.section1, true) + '</ul></div>'
+        + '<div class="sec"><div class="sec-title">' + escapeHtml(d.section3Title) + '</div>'
+        + '<div class="job-title editable-field single-line" contenteditable="true">' + formatEditable(d.jobTitle, false) + '</div>'
+        + '<div class="job-meta"><span class="editable-inline editable-field single-line" contenteditable="true">' + formatEditable(d.jobCompany, false) + '</span> | <span class="editable-inline editable-field single-line" contenteditable="true">' + formatEditable(d.jobPeriod, false) + '</span></div>'
+        + '<ul>' + editableList(d.jobBullets, true) + '</ul></div>'
+        + '<div class="sec"><div class="sec-title">' + escapeHtml(d.section2Title) + '</div><ul>' + editableList(d.section2list, true) + '</ul></div>'
+        + '<div class="sec"><div class="sec-title">' + escapeHtml(d.section4Title) + '</div>' + editableRows(d.section4rows) + '</div>'
+        + '<div class="sec"><div class="sec-title">Education</div>'
+        + '<div class="job-title editable-field single-line" contenteditable="true">' + formatEditable(d.eduTitle, false) + '</div>'
+        + '<div class="job-meta"><span class="editable-inline editable-field single-line" contenteditable="true">' + formatEditable(d.eduPlace, false) + '</span> | <span class="editable-inline editable-field single-line" contenteditable="true">' + formatEditable(d.eduYear, false) + '</span></div>'
+        + '<div class="editable-field multi-line" contenteditable="true">' + formatEditable(d.eduNote, true) + '</div></div>'
+        + foot;
 }
 
 function buildGeneral(d, hdr, foot) {
     return hdr
-    +'<div class="sec"><div class="sec-title obj-title">Objective</div><p>'+(d.objective||'&nbsp;')+'</p></div>'
-    +'<div class="sec"><div class="sec-title">Professional Summary</div><p>'+(d.summary||'&nbsp;')+'</p></div>'
-    +'<div class="grid2">'
-    +'<div class="sec"><div class="sec-title">'+d.section1Title+'</div><ul>'+li(d.section1)+'</ul></div>'
-    +'<div class="sec"><div class="sec-title">'+d.section3Title+'</div><ul>'+li(d.section3)+'</ul></div>'
-    +'</div>'
-    +'<div class="sec"><div class="sec-title">'+d.section2Title+'</div>'
-    +'<div class="job-title">'+(d.jobTitle||'&nbsp;')+'</div>'
-    +'<div class="job-meta">'+(d.jobCompany||'&nbsp;')+' | '+(d.jobPeriod||'&nbsp;')+'</div>'
-    +'<ul>'+li(d.jobBullets)+'</ul></div>'
-    +'<div class="sec"><div class="sec-title">Education</div>'
-    +'<div class="job-title">'+(d.eduTitle||'&nbsp;')+'</div>'
-    +'<div class="job-meta">'+(d.eduPlace||'&nbsp;')+' | '+(d.eduYear||'&nbsp;')+'</div>'
-    +'<ul><li>'+(d.eduNote||'&nbsp;')+'</li></ul></div>'
-    +foot;
+        + '<div class="sec"><div class="sec-title obj-title">Objective</div>' + editableBlock(d.objective, true) + '</div>'
+        + '<div class="sec"><div class="sec-title">Professional Summary</div>' + editableBlock(d.summary, true) + '</div>'
+        + '<div class="grid2">'
+        + '<div class="sec"><div class="sec-title">' + escapeHtml(d.section1Title) + '</div><ul>' + editableList(d.section1, true) + '</ul></div>'
+        + '<div class="sec"><div class="sec-title">' + escapeHtml(d.section3Title) + '</div><ul>' + editableList(d.section3, true) + '</ul></div>'
+        + '</div>'
+        + '<div class="sec"><div class="sec-title">' + escapeHtml(d.section2Title) + '</div>'
+        + '<div class="job-title editable-field single-line" contenteditable="true">' + formatEditable(d.jobTitle, false) + '</div>'
+        + '<div class="job-meta"><span class="editable-inline editable-field single-line" contenteditable="true">' + formatEditable(d.jobCompany, false) + '</span> | <span class="editable-inline editable-field single-line" contenteditable="true">' + formatEditable(d.jobPeriod, false) + '</span></div>'
+        + '<ul>' + editableList(d.jobBullets, true) + '</ul></div>'
+        + '<div class="sec"><div class="sec-title">Education</div>'
+        + '<div class="job-title editable-field single-line" contenteditable="true">' + formatEditable(d.eduTitle, false) + '</div>'
+        + '<div class="job-meta"><span class="editable-inline editable-field single-line" contenteditable="true">' + formatEditable(d.eduPlace, false) + '</span> | <span class="editable-inline editable-field single-line" contenteditable="true">' + formatEditable(d.eduYear, false) + '</span></div>'
+        + '<div class="editable-field multi-line" contenteditable="true">' + formatEditable(d.eduNote, true) + '</div></div>'
+        + foot;
 }
 
 function buildT1(d) {
     var c = CONTACT;
-    var hdr = '<div class="cv-page"><div class="cv-header"><img src="'+c.photo+'" class="cv-photo" alt="Photo"><h1>'+d.name+'</h1><div class="cv-role">'+d.role+'</div><div class="cv-contact">'+c.phone+' | '+c.email+'<br>'+c.address+'</div></div>';
-    var foot = '<div class="sec"><div class="sec-title">Personal Details</div><div class="row"><span class="lbl">Date of Birth:</span><span class="val">'+c.dob+'</span></div><div class="row"><span class="lbl">Languages:</span><span class="val">'+c.langs+'</span></div></div></div>';
-    if (d.type==='sales') return buildSales(d, hdr, foot);
-    if (d.type==='general') return buildGeneral(d, hdr, foot);
+    var hdr = '<div class="cv-page"><div class="cv-header"><img src="' + c.photo + '" class="cv-photo" alt="Photo"><h1>' + escapeHtml(d.name) + '</h1><div class="cv-role">' + escapeHtml(d.role) + '</div><div class="cv-contact">' + escapeHtml(c.phone) + ' | ' + escapeHtml(c.email) + '<br>' + escapeHtml(c.address) + '</div></div>';
+    var foot = '<div class="sec"><div class="sec-title">Personal Details</div><div class="row"><span class="lbl">Date of Birth:</span><span class="val">' + escapeHtml(c.dob) + '</span></div><div class="row"><span class="lbl">Languages:</span><span class="val">' + escapeHtml(c.langs) + '</span></div></div></div>';
+    if (d.type === 'sales') return buildSales(d, hdr, foot);
+    if (d.type === 'general') return buildGeneral(d, hdr, foot);
     return buildDev(d, hdr, foot);
 }
 
 function buildT2(d) {
     var c = CONTACT;
-    var hdr = '<div class="cv-page"><div class="cv-header"><img src="'+c.photo+'" class="cv-photo" alt="Photo"><div class="header-text"><h1>'+d.name+'</h1><div class="cv-role">'+d.role+'</div><div class="cv-contact">'+c.phone+' · '+c.email+' · '+c.address+'</div></div></div>';
-    var foot = '<div class="sec"><div class="sec-title">Details</div><div class="row"><span class="lbl">Date of Birth</span><span class="val">'+c.dob+'</span></div><div class="row"><span class="lbl">Languages</span><span class="val">'+c.langs+'</span></div></div></div>';
-    if (d.type==='sales') return buildSales(d, hdr, foot);
-    if (d.type==='general') return buildGeneral(d, hdr, foot);
+    var hdr = '<div class="cv-page"><div class="cv-header"><img src="' + c.photo + '" class="cv-photo" alt="Photo"><div class="header-text"><h1>' + escapeHtml(d.name) + '</h1><div class="cv-role">' + escapeHtml(d.role) + '</div><div class="cv-contact">' + escapeHtml(c.phone) + ' · ' + escapeHtml(c.email) + ' · ' + escapeHtml(c.address) + '</div></div></div>';
+    var foot = '<div class="sec"><div class="sec-title">Details</div><div class="row"><span class="lbl">Date of Birth</span><span class="val">' + escapeHtml(c.dob) + '</span></div><div class="row"><span class="lbl">Languages</span><span class="val">' + escapeHtml(c.langs) + '</span></div></div></div>';
+    if (d.type === 'sales') return buildSales(d, hdr, foot);
+    if (d.type === 'general') return buildGeneral(d, hdr, foot);
     return buildDev(d, hdr, foot);
 }
 
 function buildT3(d) {
     var c = CONTACT;
-    var hdr = '<div class="cv-page"><div class="cv-header"><img src="'+c.photo+'" class="cv-photo" alt="Photo"><div><h1>'+d.name+'</h1><div class="gold-line"></div><div class="cv-role">'+d.role+'</div><div class="cv-contact">'+c.phone+' · '+c.email+'<br>'+c.address+'</div></div></div>';
-    var foot = '<div class="sec"><div class="sec-title">Personal Details</div><div class="row"><span class="lbl">Date of Birth:</span><span class="val">'+c.dob+'</span></div><div class="row"><span class="lbl">Languages:</span><span class="val">'+c.langs+'</span></div></div></div>';
-    if (d.type==='sales') return buildSales(d, hdr, foot);
-    if (d.type==='general') return buildGeneral(d, hdr, foot);
+    var hdr = '<div class="cv-page"><div class="cv-header"><img src="' + c.photo + '" class="cv-photo" alt="Photo"><div><h1>' + escapeHtml(d.name) + '</h1><div class="gold-line"></div><div class="cv-role">' + escapeHtml(d.role) + '</div><div class="cv-contact">' + escapeHtml(c.phone) + ' · ' + escapeHtml(c.email) + '<br>' + escapeHtml(c.address) + '</div></div></div>';
+    var foot = '<div class="sec"><div class="sec-title">Personal Details</div><div class="row"><span class="lbl">Date of Birth:</span><span class="val">' + escapeHtml(c.dob) + '</span></div><div class="row"><span class="lbl">Languages:</span><span class="val">' + escapeHtml(c.langs) + '</span></div></div></div>';
+    if (d.type === 'sales') return buildSales(d, hdr, foot);
+    if (d.type === 'general') return buildGeneral(d, hdr, foot);
     return buildDev(d, hdr, foot);
 }
 
 function buildT4(d) {
     var c = CONTACT;
-    var sidebar = '<div class="sidebar"><img src="'+c.photo+'" class="cv-photo" alt="Photo"><h1>'+d.name+'</h1><div class="cv-role">'+d.role+'</div>'
-        +'<div><div class="sec-title">Contact</div><div class="contact-item">'+c.phone+'</div><div class="contact-item">'+c.email+'</div><div class="contact-item">'+c.address+'</div></div>'
-        +'<div><div class="sec-title">Languages</div><p>'+c.langs+'</p></div>'
-        +'<div><div class="sec-title">Personal</div><p>DOB: '+c.dob+'</p></div></div>';
-    var hdr = '<div class="cv-page">'+sidebar+'<div class="main">';
-    var foot = '<div class="sec"><div class="sec-title">Education</div><div class="job-title">'+(d.eduTitle||'&nbsp;')+'</div><div class="job-meta">'+(d.eduPlace||'&nbsp;')+' | '+(d.eduYear||'&nbsp;')+'</div><ul><li>'+(d.eduNote||'&nbsp;')+'</li></ul></div></div></div>';
+    var sidebar = '<div class="sidebar"><img src="' + c.photo + '" class="cv-photo" alt="Photo"><h1>' + escapeHtml(d.name) + '</h1><div class="cv-role">' + escapeHtml(d.role) + '</div>'
+        + '<div><div class="sec-title">Contact</div><div class="contact-item">' + escapeHtml(c.phone) + '</div><div class="contact-item">' + escapeHtml(c.email) + '</div><div class="contact-item">' + escapeHtml(c.address) + '</div></div>'
+        + '<div><div class="sec-title">Languages</div><p>' + escapeHtml(c.langs) + '</p></div>'
+        + '<div><div class="sec-title">Personal</div><p>DOB: ' + escapeHtml(c.dob) + '</p></div></div>';
+    var hdr = '<div class="cv-page">' + sidebar + '<div class="main">';
+    var foot = '<div class="sec"><div class="sec-title">Education</div><div class="job-title editable-field single-line" contenteditable="true">' + formatEditable(d.eduTitle, false) + '</div><div class="job-meta"><span class="editable-inline editable-field single-line" contenteditable="true">' + formatEditable(d.eduPlace, false) + '</span> | <span class="editable-inline editable-field single-line" contenteditable="true">' + formatEditable(d.eduYear, false) + '</span></div><div class="editable-field multi-line" contenteditable="true">' + formatEditable(d.eduNote, true) + '</div></div></div></div>';
 
     var mainContent;
-    if (d.type==='sales') {
-        mainContent = '<div class="sec"><div class="sec-title obj-title">Objective</div><p>'+(d.objective||'&nbsp;')+'</p></div>'
-            +'<div class="sec"><div class="sec-title">'+d.section1Title+'</div><ul>'+li(d.section1)+'</ul></div>'
-            +'<div class="sec"><div class="sec-title">'+d.section3Title+'</div><div class="job-title">'+(d.jobTitle||'&nbsp;')+'</div><div class="job-meta">'+(d.jobCompany||'&nbsp;')+' | '+(d.jobPeriod||'&nbsp;')+'</div><ul>'+li(d.jobBullets)+'</ul></div>'
-            +'<div class="sec"><div class="sec-title">'+d.section2Title+'</div><ul>'+li(d.section2list)+'</ul></div>';
-    } else if (d.type==='general') {
-        mainContent = '<div class="sec"><div class="sec-title obj-title">Objective</div><p>'+(d.objective||'&nbsp;')+'</p></div>'
-            +'<div class="sec"><div class="sec-title">'+d.section1Title+'</div><ul>'+li(d.section1)+'</ul></div>'
-            +'<div class="sec"><div class="sec-title">'+d.section2Title+'</div><div class="job-title">'+(d.jobTitle||'&nbsp;')+'</div><div class="job-meta">'+(d.jobCompany||'&nbsp;')+' | '+(d.jobPeriod||'&nbsp;')+'</div><ul>'+li(d.jobBullets)+'</ul></div>';
+    if (d.type === 'sales') {
+        mainContent = '<div class="sec"><div class="sec-title obj-title">Objective</div>' + editableBlock(d.objective, true) + '</div>'
+            + '<div class="sec"><div class="sec-title">' + escapeHtml(d.section1Title) + '</div><ul>' + editableList(d.section1, true) + '</ul></div>'
+            + '<div class="sec"><div class="sec-title">' + escapeHtml(d.section3Title) + '</div><div class="job-title editable-field single-line" contenteditable="true">' + formatEditable(d.jobTitle, false) + '</div><div class="job-meta"><span class="editable-inline editable-field single-line" contenteditable="true">' + formatEditable(d.jobCompany, false) + '</span> | <span class="editable-inline editable-field single-line" contenteditable="true">' + formatEditable(d.jobPeriod, false) + '</span></div><ul>' + editableList(d.jobBullets, true) + '</ul></div>'
+            + '<div class="sec"><div class="sec-title">' + escapeHtml(d.section2Title) + '</div><ul>' + editableList(d.section2list, true) + '</ul></div>';
+    } else if (d.type === 'general') {
+        mainContent = '<div class="sec"><div class="sec-title obj-title">Objective</div>' + editableBlock(d.objective, true) + '</div>'
+            + '<div class="sec"><div class="sec-title">' + escapeHtml(d.section1Title) + '</div><ul>' + editableList(d.section1, true) + '</ul></div>'
+            + '<div class="sec"><div class="sec-title">' + escapeHtml(d.section2Title) + '</div><div class="job-title editable-field single-line" contenteditable="true">' + formatEditable(d.jobTitle, false) + '</div><div class="job-meta"><span class="editable-inline editable-field single-line" contenteditable="true">' + formatEditable(d.jobCompany, false) + '</span> | <span class="editable-inline editable-field single-line" contenteditable="true">' + formatEditable(d.jobPeriod, false) + '</span></div><ul>' + editableList(d.jobBullets, true) + '</ul></div>';
     } else {
-        mainContent = '<div class="sec"><div class="sec-title obj-title">Objective</div><p>'+(d.objective||'&nbsp;')+'</p></div>'
-            +'<div class="sec"><div class="sec-title">'+d.section1Title+'</div><ul>'+li(d.section1)+'</ul></div>'
-            +'<div class="sec"><div class="sec-title">'+d.section2Title+'</div>'+rows(d.section2rows)+'</div>'
-            +'<div class="sec"><div class="sec-title">'+d.section3Title+'</div><div class="job-title">'+(d.jobTitle||'&nbsp;')+'</div><div class="job-meta">'+(d.jobCompany||'&nbsp;')+' | '+(d.jobPeriod||'&nbsp;')+'</div><ul>'+li(d.jobBullets)+'</ul></div>';
+        mainContent = '<div class="sec"><div class="sec-title obj-title">Objective</div>' + editableBlock(d.objective, true) + '</div>'
+            + '<div class="sec"><div class="sec-title">' + escapeHtml(d.section1Title) + '</div><ul>' + editableList(d.section1, true) + '</ul></div>'
+            + '<div class="sec"><div class="sec-title">' + escapeHtml(d.section2Title) + '</div>' + editableRows(d.section2rows) + '</div>'
+            + '<div class="sec"><div class="sec-title">' + escapeHtml(d.section3Title) + '</div><div class="job-title editable-field single-line" contenteditable="true">' + formatEditable(d.jobTitle, false) + '</div><div class="job-meta"><span class="editable-inline editable-field single-line" contenteditable="true">' + formatEditable(d.jobCompany, false) + '</span> | <span class="editable-inline editable-field single-line" contenteditable="true">' + formatEditable(d.jobPeriod, false) + '</span></div><ul>' + editableList(d.jobBullets, true) + '</ul></div>';
     }
     return hdr + mainContent + foot;
 }
 
 function buildT5(d) {
     var c = CONTACT;
-    var hdr = '<div class="cv-page"><div class="cv-header"><img src="'+c.photo+'" class="cv-photo" alt="Photo"><div class="header-text"><h1>'+d.name+'</h1><div class="cv-role">'+d.role+'</div><div class="cv-contact">'+c.phone+' · '+c.email+' · '+c.address+'</div></div></div><div class="body">';
-    var foot = '<div class="sec"><div class="sec-title">Personal Details</div><p>DOB: '+c.dob+' | '+c.langs+'</p></div></div></div>';
-    if (d.type==='sales') return buildSales(d, hdr, foot);
-    if (d.type==='general') return buildGeneral(d, hdr, foot);
+    var hdr = '<div class="cv-page"><div class="cv-header"><img src="' + c.photo + '" class="cv-photo" alt="Photo"><div class="header-text"><h1>' + escapeHtml(d.name) + '</h1><div class="cv-role">' + escapeHtml(d.role) + '</div><div class="cv-contact">' + escapeHtml(c.phone) + ' · ' + escapeHtml(c.email) + ' · ' + escapeHtml(c.address) + '</div></div></div><div class="body">';
+    var foot = '<div class="sec"><div class="sec-title">Personal Details</div><p>DOB: ' + escapeHtml(c.dob) + ' | ' + escapeHtml(c.langs) + '</p></div></div></div>';
+    if (d.type === 'sales') return buildSales(d, hdr, foot);
+    if (d.type === 'general') return buildGeneral(d, hdr, foot);
     return buildDev(d, hdr, foot);
 }
-
-// ===== STATE =====
-var currentTemplate = 1;
-var currentCV = 'cvA';
-var builders = {1:buildT1, 2:buildT2, 3:buildT3, 4:buildT4, 5:buildT5};
-var tClasses = {1:'t1', 2:'t2', 3:'t3', 4:'t4', 5:'t5'};
 
 function render() {
     var wrap = document.getElementById('cv-wrap');
     var d = DATA[currentCV];
     wrap.className = 'cv-wrap ' + tClasses[currentTemplate];
     document.getElementById('tmpl-root').innerHTML = builders[currentTemplate](d);
-
-    // Re-attach editable behavior after re-render
-    setupEditableBehavior(document.getElementById('tmpl-root'));
-}
-
-function setTemplate(n) {
-    currentTemplate = n;
-    for (var i = 1; i <= 5; i++) {
-        var btn = document.getElementById('t'+i+'-btn');
-        if (btn) btn.classList.toggle('active', i === n);
-    }
-    render();
 }
 
 function setPage(p) {
@@ -577,11 +718,14 @@ function openDashboard() {
     document.getElementById('step2').style.display = 'none';
     document.getElementById('modal').classList.add('open');
 }
-function closeDashboard() { document.getElementById('modal').classList.remove('open'); }
-function closeOnBg(e) { if (e.target === document.getElementById('modal')) closeDashboard(); }
 
-var pendingCV = null;
-var cvLabels = { cvA: '💻 Developer / Tech', cvB: '📈 Sales & Marketing', cvC: '🌐 General Purpose' };
+function closeDashboard() {
+    document.getElementById('modal').classList.remove('open');
+}
+
+function closeOnBg(e) {
+    if (e.target === document.getElementById('modal')) closeDashboard();
+}
 
 function selectCV(v) {
     pendingCV = v;
@@ -606,21 +750,20 @@ function backToStep1() {
     document.getElementById('step2').style.display = 'none';
 }
 
-// Print both pages
-window.addEventListener('beforeprint', function() {
+window.addEventListener('beforeprint', function () {
     document.getElementById('page1-wrap').style.display = 'block';
     document.getElementById('cv-wrap').style.display = 'block';
 });
-window.addEventListener('afterprint', function() {
+
+window.addEventListener('afterprint', function () {
     var p1Active = document.getElementById('pg1-btn').classList.contains('active');
     document.getElementById('page1-wrap').style.display = p1Active ? 'block' : 'none';
     document.getElementById('cv-wrap').style.display = p1Active ? 'none' : 'block';
 });
 
-// Init
-setupEditableBehavior(document.body);
 document.getElementById('card-dev').classList.add('selected');
 render();
+setPage(1);
 </script>
-</body> 
+</body>
 </html>
