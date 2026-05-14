@@ -297,7 +297,6 @@ var CONTACT = {
 var DATA = {
 
     // ── CV A: DEV ──
-    // Priority: Tech Skills → AI Tools → Work Exp → Soft Skills → Education
     cvA: {
         name: 'KYAW GYI — YFM', role: 'Junior Developer & System Maintainer',
         objective: '', summary: '',
@@ -315,7 +314,6 @@ var DATA = {
     },
 
     // ── CV B: SALES ──
-    // Priority: Soft Skills → Work Exp → Digital Tools → Education → (no AI section)
     cvB: {
         name: 'KYAW GYI — YFM', role: 'Sales & Marketing Executive',
         objective: '', summary: '',
@@ -333,7 +331,6 @@ var DATA = {
     },
 
     // ── CV C: GENERAL ──
-    // Priority: Skills → Work Exp → Education
     cvC: {
         name: 'KYAW GYI — YFM', role: 'Versatile Professional',
         objective: '', summary: '',
@@ -349,12 +346,81 @@ var DATA = {
     }
 };
 
-function li(arr) { return arr.map(function(s){ return '<li>'+(s||'&nbsp;')+'</li>'; }).join(''); }
-function rows(arr) { return arr.map(function(r){ return '<div class="row"><span class="lbl">'+(r[0]||'')+':</span><span class="val">'+(r[1]||'&nbsp;')+'</span></div>'; }).join(''); }
+function li(arr) {
+    return arr.map(function(s){
+        return '<li>' + (s || '&nbsp;') + '</li>';
+    }).join('');
+}
+
+function rows(arr) {
+    return arr.map(function(r){
+        return '<div class="row"><span class="lbl">' + (r[0] || '') + ':</span><span class="val">' + (r[1] || '&nbsp;') + '</span></div>';
+    }).join('');
+}
+
+// Helpers for editable content
+function normalizeEditableHTML(el) {
+    if (!el) return;
+    // Keep line breaks as <br>, avoid nested paragraphs/divs on paste/enter.
+    var html = el.innerHTML;
+
+    // Convert common wrappers to line breaks inside editable fields.
+    html = html
+        .replace(/<\/div>\s*<div>/gi, '<br>')
+        .replace(/<\/p>\s*<p>/gi, '<br>')
+        .replace(/<div><br><\/div>/gi, '<br>')
+        .replace(/<p><br><\/p>/gi, '<br>')
+        .replace(/<div>/gi, '')
+        .replace(/<\/div>/gi, '')
+        .replace(/<p>/gi, '')
+        .replace(/<\/p>/gi, '');
+
+    // Clean excessive breaks
+    html = html.replace(/(<br>\s*){3,}/gi, '<br><br>');
+    el.innerHTML = html;
+}
+
+function setupEditableBehavior(root) {
+    if (!root) return;
+
+    root.addEventListener('keydown', function(e) {
+        if (!e.target.closest('[contenteditable="true"]')) return;
+
+        // Enter = new line, not new paragraph
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            document.execCommand('insertHTML', false, '<br>');
+            return;
+        }
+
+        // Shift+Enter can also insert a line break, same behavior
+        if (e.key === 'Enter' && e.shiftKey) {
+            e.preventDefault();
+            document.execCommand('insertHTML', false, '<br>');
+        }
+    });
+
+    root.addEventListener('paste', function(e) {
+        if (!e.target.closest('[contenteditable="true"]')) return;
+        e.preventDefault();
+        var text = (e.clipboardData || window.clipboardData).getData('text/plain') || '';
+        // Preserve pasted new lines as line breaks
+        var html = text
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/\r\n|\r|\n/g, '<br>');
+        document.execCommand('insertHTML', false, html);
+    });
+
+    root.addEventListener('input', function(e) {
+        var target = e.target.closest('[contenteditable="true"]');
+        if (!target) return;
+        normalizeEditableHTML(target);
+    });
+}
 
 // ── TEMPLATE BUILDERS ──
-// Each CV type builds sections in priority order
-
 function buildDev(d, hdr, foot) {
     return hdr
     +'<div class="sec"><div class="sec-title obj-title">Objective</div><p>'+(d.objective||'&nbsp;')+'</p></div>'
@@ -485,11 +551,17 @@ function render() {
     var d = DATA[currentCV];
     wrap.className = 'cv-wrap ' + tClasses[currentTemplate];
     document.getElementById('tmpl-root').innerHTML = builders[currentTemplate](d);
+
+    // Re-attach editable behavior after re-render
+    setupEditableBehavior(document.getElementById('tmpl-root'));
 }
 
 function setTemplate(n) {
     currentTemplate = n;
-    for (var i = 1; i <= 5; i++) document.getElementById('t'+i+'-btn').classList.toggle('active', i === n);
+    for (var i = 1; i <= 5; i++) {
+        var btn = document.getElementById('t'+i+'-btn');
+        if (btn) btn.classList.toggle('active', i === n);
+    }
     render();
 }
 
@@ -534,14 +606,6 @@ function backToStep1() {
     document.getElementById('step2').style.display = 'none';
 }
 
-// Paste plain text only
-document.addEventListener('paste', function(e) {
-    if (!e.target.closest('[contenteditable="true"]')) return;
-    e.preventDefault();
-    var text = (e.clipboardData || window.clipboardData).getData('text/plain');
-    document.execCommand('insertText', false, text);
-});
-
 // Print both pages
 window.addEventListener('beforeprint', function() {
     document.getElementById('page1-wrap').style.display = 'block';
@@ -554,8 +618,9 @@ window.addEventListener('afterprint', function() {
 });
 
 // Init
+setupEditableBehavior(document.body);
 document.getElementById('card-dev').classList.add('selected');
 render();
 </script>
-</body>
+</body> 
 </html>
