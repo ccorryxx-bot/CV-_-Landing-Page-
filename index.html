@@ -237,7 +237,7 @@ body { background: #e8eaf0; font-family: 'Inter', sans-serif; min-height: 100vh;
 </div>
 
 <!-- DASHBOARD MODAL -->
-<div class="modal-overlay" id="modal" onclick="closeOnBg(event)">
+<div class="modal-overlay" id="dashboard-modal">
     <div class="modal">
         <div id="step1">
             <h2>⚡ Dashboard</h2>
@@ -506,27 +506,7 @@ function editableRows(arr) {
 
 function normalizeEditable(el) {
     if (!el) return;
-
-    var html = el.innerHTML;
-
-    html = html
-        .replace(/\u200B/g, '')
-        .replace(/<div><br><\/div>/gi, '<br>')
-        .replace(/<p><br><\/p>/gi, '<br>')
-        .replace(/<\/div>\s*<div>/gi, '<br>')
-        .replace(/<\/p>\s*<p>/gi, '<br>')
-        .replace(/<div>/gi, '')
-        .replace(/<\/div>/gi, '')
-        .replace(/<p>/gi, '')
-        .replace(/<\/p>/gi, '');
-
-    if (el.classList.contains('multi-line')) {
-        html = html.replace(/(<br>\s*){3,}/gi, '<br><br>');
-    } else {
-        html = html.replace(/<br\s*\/?>/gi, ' ').replace(/\s+/g, ' ').trim();
-    }
-
-    el.innerHTML = html;
+    // Removed el.innerHTML re-assignment to prevent cursor reset
 }
 
 function insertBrAtCaret() {
@@ -537,13 +517,12 @@ function insertBrAtCaret() {
     range.deleteContents();
 
     var br = document.createElement('br');
-    var zwsp = document.createTextNode('\u200B');
-
+    // Using a zero-width space can help position the cursor, 
+    // but standard behavior usually works fine if we just insert the BR and move after it.
     range.insertNode(br);
-    br.parentNode.insertBefore(zwsp, br.nextSibling);
-
-    range.setStartAfter(zwsp);
-    range.collapse(true);
+    range.setStartAfter(br);
+    range.setEndAfter(br);
+    range.collapse(false);
 
     sel.removeAllRanges();
     sel.addRange(range);
@@ -555,51 +534,26 @@ function bindEditable(root) {
     var fields = root.querySelectorAll('[contenteditable="true"]');
 
     fields.forEach(function (el) {
-        el.addEventListener('beforeinput', function (e) {
-            if (!el.classList.contains('multi-line')) return;
-
-            if (e.inputType === 'insertParagraph' || e.inputType === 'insertLineBreak') {
-                e.preventDefault();
-                insertBrAtCaret();
-                setTimeout(function () {
-                    normalizeEditable(el);
-                }, 0);
-            }
-        });
-
         el.addEventListener('keydown', function (e) {
             if (e.key === 'Enter') {
-                e.preventDefault();
-
-                if (!el.classList.contains('multi-line')) return;
-
-                insertBrAtCaret();
-                setTimeout(function () {
-                    normalizeEditable(el);
-                }, 0);
+                if (!el.classList.contains('multi-line')) {
+                    e.preventDefault();
+                    return;
+                }
+                // Let the browser handle multi-line Enter naturally to keep cursor position
+                // We only intercept if we want custom BR behavior, but native is more stable for cursor.
             }
         });
 
         el.addEventListener('paste', function (e) {
             e.preventDefault();
-
             var text = (e.clipboardData || window.clipboardData).getData('text/plain') || '';
-
             if (el.classList.contains('multi-line')) {
-                var html = escapeHtml(text).replace(/\r\n|\r|\n/g, '<br>');
-                document.execCommand('insertHTML', false, html);
+                document.execCommand('insertText', false, text);
             } else {
                 var clean = text.replace(/\r\n|\r|\n/g, ' ').replace(/\s+/g, ' ').trim();
                 document.execCommand('insertText', false, clean);
             }
-
-            setTimeout(function () {
-                normalizeEditable(el);
-            }, 0);
-        });
-
-        el.addEventListener('input', function () {
-            normalizeEditable(el);
         });
     });
 }
@@ -717,83 +671,63 @@ function buildT4(d) {
 
 function buildT5(d) {
     var c = CONTACT;
-    var hdr = '<div class="cv-page"><div class="cv-header"><img src="'+c.photo+'" class="cv-photo" alt="Photo"><div class="header-text"><h1>'+escapeHtml(d.name)+'</h1><div class="cv-role">'+escapeHtml(d.role)+'</div><div class="cv-contact">'+escapeHtml(c.phone)+' · '+escapeHtml(c.email)+' · '+escapeHtml(c.address)+'</div></div></div><div class="body">';
-    var foot = '<div class="sec"><div class="sec-title">Personal Details</div><p>DOB: '+escapeHtml(c.dob)+' | '+escapeHtml(c.langs)+'</p></div></div></div>';
+    var hdr = '<div class="cv-page"><div class="cv-header"><img src="'+c.photo+'" class="cv-photo" alt="Photo"><div><h1>'+escapeHtml(d.name)+'</h1><div class="cv-role">'+escapeHtml(d.role)+'</div><div class="cv-contact">'+escapeHtml(c.phone)+' · '+escapeHtml(c.email)+' · '+escapeHtml(c.address)+'</div></div></div><div class="body">';
+    var foot = '<div class="sec"><div class="sec-title">Personal Info</div><div class="row"><span class="lbl">Born:</span><span class="val">'+escapeHtml(c.dob)+'</span></div><div class="row"><span class="lbl">Languages:</span><span class="val">'+escapeHtml(c.langs)+'</span></div></div></div></div>';
     if (d.type==='sales') return buildSales(d, hdr, foot);
     if (d.type==='general') return buildGeneral(d, hdr, foot);
     return buildDev(d, hdr, foot);
 }
 
-/* STATE */
-var currentTemplate = 1;
+function setPage(n) {
+    document.getElementById('pg1-btn').classList.toggle('active', n===1);
+    document.getElementById('pg2-btn').classList.toggle('active', n===2);
+    document.getElementById('page1-wrap').style.display = (n===1 ? 'block' : 'none');
+    document.getElementById('cv-wrap').style.display = (n===2 ? 'block' : 'none');
+    if (n===1) bindEditable(document.getElementById('page1-wrap'));
+}
+
 var currentCV = 'cvA';
-var builders = {1:buildT1, 2:buildT2, 3:buildT3, 4:buildT4, 5:buildT5};
-var tClasses = {1:'t1', 2:'t2', 3:'t3', 4:'t4', 5:'t5'};
-var pendingCV = null;
-var cvLabels = { cvA: '💻 Developer / Tech', cvB: '📈 Sales & Marketing', cvC: '🌐 General Purpose' };
+var currentTmpl = 1;
 
-function render() {
-    var wrap = document.getElementById('cv-wrap');
-    var d = DATA[currentCV];
-    wrap.className = 'cv-wrap ' + tClasses[currentTemplate];
-    document.getElementById('tmpl-root').innerHTML = builders[currentTemplate](d);
-    bindEditable(document.getElementById('page1-wrap'));
-    bindEditable(document.getElementById('tmpl-root'));
-}
-
-function setPage(p) {
-    document.getElementById('pg1-btn').classList.toggle('active', p === 1);
-    document.getElementById('pg2-btn').classList.toggle('active', p === 2);
-    document.getElementById('page1-wrap').style.display = p === 1 ? 'block' : 'none';
-    document.getElementById('cv-wrap').style.display = p === 2 ? 'block' : 'none';
-}
-
-function openDashboard() {
-    document.getElementById('step1').style.display = 'block';
-    document.getElementById('step2').style.display = 'none';
-    document.getElementById('modal').classList.add('open');
-}
-function closeDashboard() { document.getElementById('modal').classList.remove('open'); }
-function closeOnBg(e) { if (e.target === document.getElementById('modal')) closeDashboard(); }
-
-function selectCV(v) {
-    pendingCV = v;
-    document.getElementById('card-dev').classList.toggle('selected', v === 'cvA');
-    document.getElementById('card-sales').classList.toggle('selected', v === 'cvB');
-    document.getElementById('card-gen').classList.toggle('selected', v === 'cvC');
-    document.getElementById('cv-label').textContent = cvLabels[v];
+function selectCV(key) {
+    currentCV = key;
+    document.getElementById('cv-label').innerText = (key==='cvA'?'Developer':(key==='cvB'?'Sales':'General'));
     document.getElementById('step1').style.display = 'none';
     document.getElementById('step2').style.display = 'block';
 }
 
+function backToStep1() {
+    document.getElementById('step2').style.display = 'none';
+    document.getElementById('step1').style.display = 'block';
+}
+
 function pickTemplate(n) {
-    currentCV = pendingCV;
-    currentTemplate = n;
-    render();
+    currentTmpl = n;
+    renderCV();
     closeDashboard();
     setPage(2);
 }
 
-function backToStep1() {
-    document.getElementById('step1').style.display = 'block';
-    document.getElementById('step2').style.display = 'none';
+function renderCV() {
+    var wrap = document.getElementById('cv-wrap');
+    wrap.className = 'cv-wrap t' + currentTmpl;
+    var root = document.getElementById('tmpl-root');
+    var d = DATA[currentCV];
+    if (currentTmpl===1) root.innerHTML = buildT1(d);
+    else if (currentTmpl===2) root.innerHTML = buildT2(d);
+    else if (currentTmpl===3) root.innerHTML = buildT3(d);
+    else if (currentTmpl===4) root.innerHTML = buildT4(d);
+    else if (currentTmpl===5) root.innerHTML = buildT5(d);
+    bindEditable(root);
 }
 
-/* PRINT BOTH PAGES */
-window.addEventListener('beforeprint', function() {
-    document.getElementById('page1-wrap').style.display = 'block';
-    document.getElementById('cv-wrap').style.display = 'block';
-});
-window.addEventListener('afterprint', function() {
-    var p1Active = document.getElementById('pg1-btn').classList.contains('active');
-    document.getElementById('page1-wrap').style.display = p1Active ? 'block' : 'none';
-    document.getElementById('cv-wrap').style.display = p1Active ? 'none' : 'block';
-});
+function openDashboard() { document.getElementById('dashboard-modal').classList.add('open'); }
+function closeDashboard() { document.getElementById('dashboard-modal').classList.remove('open'); }
 
-/* INIT */
-document.getElementById('card-dev').classList.add('selected');
-render();
-setPage(1);
+window.onload = function() {
+    bindEditable(document.getElementById('page1-wrap'));
+    renderCV();
+};
 </script>
 </body>
 </html>
